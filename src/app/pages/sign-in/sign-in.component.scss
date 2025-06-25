@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Hero image responsive adjustments */
+.hero-image {
+  /* Ensure image maintains aspect ratio and is fully visible */
+  aspect-ratio: 16/9;
+}
+
+/* Mobile-specific adjustments for hero image */
+@media (max-width: 575.98px) {
+  .hero-image {
+    min-height: 180px !important;
+    height: 35vh !important;
+    max-height: 250px !important;
+    /* Use background-size: contain to ensure full image visibility on mobile */
+    background-size: contain !important;
+  }
+}
+
+/* Tablet and larger adjustments */
+@media (min-width: 576px) {
+  .hero-image {
+    min-height: 200px !important;
+    height: 40vh !important;
+    max-height: 320px !important;
+    /* Can use cover for larger screens where cropping is acceptable */
+    background-size: cover !important;
+  }
+}
+
+/* Large desktop adjustments */
+@media (min-width: 1200px) {
+  .hero-image {
+    max-height: 400px !important;
+  }
+}
