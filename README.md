@@ -3,7 +3,7 @@
 ## Description
 An application to promote live dance events in theaters for dance school students. 
 
-This application is developed under the TSI33A - Front-End Applications Development Using Frameworks and Components course and is a part of Systems for Internet undergraduate course at Federal University of Technology - Parana, Guarapuava Campus.
+This application is developed under the TSI33A – Front-End Applications Development Using Frameworks and Components course and is a part of Systems for Internet undergraduate course at Federal University of Technology – Paraná, Guarapuava Campus.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
 
@@ -18,7 +18,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 **Design system:** https:// design system
 
 [//]: # (todo define a css framework)
-**CSS framework:** Nome do Framework CSS utilizado.
+**CSS framework:** bootstrap.
 
 [//]: # (todo LAST : copy dependencies from package.json file)
 **Dependencies:**: Lista das bibliotecas JavaScript utilizadas.
