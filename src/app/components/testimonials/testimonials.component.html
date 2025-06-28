@@ -1,1 +1,20 @@
-<p>testimonials works!</p>
+<div class='testimonials-section'>
+  <h2 class='bravo-text-primary fs-4 fw-bold p-md pb-2 pt-4'>{{ title }}</h2>
+  <div class='p-md'>
+    <div class='testimonial-card rounded-3 d-flex flex-column justify-content-end position-relative overflow-hidden'>
+      <img
+        [src]='testimonial.backgroundImage'
+        [alt]="'Testimonial by ' + testimonial.author"
+        class='testimonial-image position-absolute top-0 start-0 w-100 h-100 object-fit-cover'>
+      <div class='testimonial-overlay position-absolute top-0 start-0 w-100 h-100'></div>
+      <div class='testimonial-content position-relative p-lg'>
+        <div class='d-flex w-100 align-items-end justify-content-between'>
+          <div class='flex-grow-1' style='max-width: 440px;'>
+            <p class='bravo-text-primary fs-5 fw-bold lh-sm mb-2'>{{ testimonial.quote }}</p>
+            <p class='bravo-text-primary fs-6 fw-medium mb-0'>{{ testimonial.author }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
