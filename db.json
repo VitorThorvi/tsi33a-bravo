@@ -74,5 +74,32 @@
     "eventName": "Mostra de Ballet Primavera 2024",
     "h1Text": "Oportunidade de Performance de Ballet",
     "pText": "Entre no centro das atenções e mostre seu talento em nossa próxima apresentação de ballet! Esta é sua chance de brilhar no palco, se apresentando para seus amigos e família. Junte-se a nós para uma experiência inesquecível."
-  }
+  },
+  "event-stats": [
+    {
+      "id": 1,
+      "name": "Participantes Totais",
+      "value": "156"
+    },
+    {
+      "id": 2,
+      "name": "Vendas Totais",
+      "value": "R$ 12.450"
+    },
+    {
+      "id": 3,
+      "name": "Taxa de Participação",
+      "value": "87%"
+    },
+    {
+      "id": 4,
+      "name": "Item Mais Vendido",
+      "value": "Conjunto"
+    },
+    {
+      "id": 5,
+      "name": "Ingressos Vendidos",
+      "value": "234"
+    }
+  ]
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
 import { BaseUiComponent } from './base-ui/base-ui.component';
 
 @Component({
