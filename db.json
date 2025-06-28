@@ -2,49 +2,49 @@
   "pricing": [
     {
       "id": 1,
-      "name": "Soloist",
+      "name": "Solista",
       "price": 49,
       "features": [
-        "Featured solo performance",
-        "Professional photos"
+        "Performance solo em destaque",
+        "Fotos profissionais"
       ]
     },
     {
       "id": 2,
-      "name": "Ensemble",
+      "name": "Conjunto",
       "price": 29,
       "features": [
-        "Group performance",
-        "Stage experience"
+        "Performance em grupo",
+        "Experiência no palco"
       ]
     },
     {
       "id": 3,
-      "name": "Orchestra",
+      "name": "Orquestra",
       "price": 99,
       "features": [
-        "Full orchestra performance",
-        "Professional recording",
-        "Video production",
-        "Concert hall booking"
+        "Performance com orquestra completa",
+        "Gravação profissional",
+        "Produção de vídeo",
+        "Reserva de sala de concerto"
       ]
     }
   ],
   "faq": [
     {
       "id": 1,
-      "question": "What is the dress code for rehearsals?",
-      "answer": "We recommend comfortable, dark-colored clothing that allows for easy movement. Avoid jewelry that might make noise during performance. Specific dress requirements will be provided closer to the performance date."
+      "question": "Qual é o código de vestimenta para os ensaios?",
+      "answer": "Recomendamos roupas confortáveis e de cores escuras que permitam movimentos fáceis. Evite joias que possam fazer ruído durante a apresentação. Requisitos específicos de vestimenta serão fornecidos mais próximo da data da apresentação."
     },
     {
       "id": 2,
-      "question": "Is there parking available at the venue?",
-      "answer": "Yes, there is complimentary parking available for all performers and their guests. The parking lot is located behind the main building with easy access to the performance hall."
+      "question": "Há estacionamento disponível no local?",
+      "answer": "Sim, há estacionamento gratuito disponível para todos os artistas e seus convidados. O estacionamento está localizado atrás do prédio principal com fácil acesso ao salão de apresentações."
     },
     {
       "id": 3,
-      "question": "What should I bring to the performance?",
-      "answer": "Please bring your instrument (if applicable), sheet music, a water bottle, and any personal items you might need. We provide music stands and basic equipment, but personal instruments should be brought by each performer."
+      "question": "O que devo levar para a apresentação?",
+      "answer": "Por favor, traga seu instrumento (se aplicável), partitura, uma garrafa de água e quaisquer itens pessoais que possa precisar. Fornecemos estantes de música e equipamentos básicos, mas instrumentos pessoais devem ser trazidos por cada artista."
     }
   ],
   "contacts": [
@@ -60,6 +60,19 @@
       "question": "Test question with answered field",
       "submittedAt": "2024-01-15T10:30:00.000Z",
       "answered": false
+    },
+    {
+      "id": "89aa",
+      "email": "email@email.com",
+      "question": "asdfsadfasdfoiasdjfosaifjsdaof",
+      "submittedAt": "2025-06-28T22:44:42.221Z",
+      "answered": false
     }
-  ]
+  ],
+  "cta": {
+    "id": 1,
+    "eventName": "Mostra de Ballet Primavera 2024",
+    "h1Text": "Oportunidade de Performance de Ballet",
+    "pText": "Entre no centro das atenções e mostre seu talento em nossa próxima apresentação de ballet! Esta é sua chance de brilhar no palco, se apresentando para seus amigos e família. Junte-se a nós para uma experiência inesquecível."
+  }
 }

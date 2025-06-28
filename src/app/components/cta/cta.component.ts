@@ -8,8 +8,9 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
   imports: [PrimaryButtonComponent],
 })
 export class CtaComponent {
-  @Input() h1Text = 'Default H1 Text';
-  @Input() h2Text = 'Default H2 Text';
-  @Input() pText = 'Default Paragraph Text';
-  @Input() buttonText = 'Default Button Text';
+  @Input() eventName = '';
+  @Input() h1Text = '';
+  @Input() h2Text = '';
+  @Input() pText = '';
+  @Input() buttonText = '';
 }

@@ -52,7 +52,7 @@ export class ContactUsComponent {
         },
         error: (err) => {
           this.isSubmitting = false;
-          this.error = 'Failed to submit your question. Please try again.';
+          this.error = 'Falha ao enviar sua pergunta. Tente novamente.';
           console.error('Error submitting question:', err);
         },
       });

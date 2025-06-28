@@ -26,7 +26,7 @@ export class PricingComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Failed to load pricing options';
+        this.error = 'Falha ao carregar opções de preços';
         this.loading = false;
         console.error('Error loading pricing options:', err);
       },

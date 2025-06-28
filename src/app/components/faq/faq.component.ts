@@ -25,7 +25,7 @@ export class FaqComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Failed to load FAQ items';
+        this.error = 'Falha ao carregar itens de perguntas frequentes';
         this.loading = false;
         console.error('Error loading FAQ items:', err);
       },
