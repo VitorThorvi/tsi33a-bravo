@@ -1,1 +1,58 @@
-<p>pricing works!</p>
+<div class='flex-grow-1'>
+  <h2 class='bravo-text-primary h4 fw-bold px-4 pb-3 pt-5'>Subscription</h2>
+
+  @if (loading) {
+    <div class='container-fluid px-4 py-3'>
+      <div class='text-center bravo-text-primary'>
+        <p>Loading pricing options...</p>
+      </div>
+    </div>
+  }
+
+  @if (error) {
+    <div class='container-fluid px-4 py-3'>
+      <div class='text-center bravo-text-primary'>
+        <p>{{ error }}</p>
+      </div>
+    </div>
+  }
+
+  @if (!loading && !error && pricingOptions.length > 0) {
+    <div class='container-fluid px-4 py-3'>
+      <div class='row g-3'>
+        @for (option of pricingOptions; track option.id) {
+          <div class='col-12 col-md-6'>
+            <div class='card bravo-bg-secondary-dark rounded-3 p-4 h-100'
+                 style='border: 1px solid var(--bravo-border-accent);'>
+              <div class='card-body p-0'>
+                <div class='mb-4'>
+                  <h3 class='bravo-text-primary h6 fw-bold mb-1'>{{ option.name }}</h3>
+                  <span class='bravo-text-primary display-6 fw-bold'>${{ option.price }}</span>
+                </div>
+                <app-secondary-button
+                  [buttonText]="'Subscribe'"
+                  [fullWidth]='true'
+                  class='mb-4'>
+                </app-secondary-button>
+                <div class='d-flex flex-column gap-2'>
+                  @for (feature of option.features; track feature) {
+                    <div class='d-flex align-items-center gap-3 bravo-text-primary small'>
+                      <svg fill='currentColor'
+                           height='20px'
+                           viewBox='0 0 256 256'
+                           width='20px'
+                           xmlns='http://www.w3.org/2000/svg'>
+                        <path d='M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z'></path>
+                      </svg>
+                      {{ feature }}
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
