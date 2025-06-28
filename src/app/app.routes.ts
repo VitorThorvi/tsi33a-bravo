@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { SignedUserComponent } from './pages/signed-user/signed-user.component';
-import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: SignInComponent,
+    component: AdminDashboardComponent,
   },
   {
     path: 'signed',

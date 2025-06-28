@@ -1,8 +1,21 @@
 <div>
-  <h1>{{ h1Text }}</h1>
-  <h2>{{ h2Text }}</h2>
-  <p>{{ pText }}</p>
-  <div class='cta-container'>
-    <app-primary-button [buttonText]='buttonText'/>
-  </div>
+  @if (eventName) {
+    <div class='text-center bravo-text-primary p-4'>
+      <h1 class='bravo-text-primary h3 fw-bold'>{{ eventName }}</h1>
+    </div>
+  }
+  @if (h1Text) {
+    <h1 class='bravo-text-primary h4 fw-bold px-4 pb-3 pt-5'>{{ h1Text }}</h1>
+  }
+  @if (h2Text) {
+    <h2>{{ h2Text }}</h2>
+  }
+  @if (pText) {
+    <p class='bravo-text-primary px-4 pb-3 pt-1'>{{ pText }}</p>
+  }
+  @if (buttonText) {
+    <div class='cta-container'>
+      <app-primary-button [buttonText]='buttonText'/>
+    </div>
+  }
 </div>

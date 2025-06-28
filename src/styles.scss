@@ -319,3 +319,33 @@ body {
 .gap-xxl {
   gap: var(--spacing-xxl);
 }
+
+// ============================================================================
+// FORM PLACEHOLDER STYLING
+// ============================================================================
+
+// Improve placeholder contrast using brand colors
+::placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}
+
+::-webkit-input-placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}
+
+::-moz-placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}
+
+:-moz-placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}

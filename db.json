@@ -1,0 +1,78 @@
+{
+  "pricing": [
+    {
+      "id": 1,
+      "name": "Solista",
+      "price": 49,
+      "features": [
+        "Performance solo em destaque",
+        "Fotos profissionais"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Conjunto",
+      "price": 29,
+      "features": [
+        "Performance em grupo",
+        "Experiência no palco"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Orquestra",
+      "price": 99,
+      "features": [
+        "Performance com orquestra completa",
+        "Gravação profissional",
+        "Produção de vídeo",
+        "Reserva de sala de concerto"
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "id": 1,
+      "question": "Qual é o código de vestimenta para os ensaios?",
+      "answer": "Recomendamos roupas confortáveis e de cores escuras que permitam movimentos fáceis. Evite joias que possam fazer ruído durante a apresentação. Requisitos específicos de vestimenta serão fornecidos mais próximo da data da apresentação."
+    },
+    {
+      "id": 2,
+      "question": "Há estacionamento disponível no local?",
+      "answer": "Sim, há estacionamento gratuito disponível para todos os artistas e seus convidados. O estacionamento está localizado atrás do prédio principal com fácil acesso ao salão de apresentações."
+    },
+    {
+      "id": 3,
+      "question": "O que devo levar para a apresentação?",
+      "answer": "Por favor, traga seu instrumento (se aplicável), partitura, uma garrafa de água e quaisquer itens pessoais que possa precisar. Fornecemos estantes de música e equipamentos básicos, mas instrumentos pessoais devem ser trazidos por cada artista."
+    }
+  ],
+  "contacts": [
+    {
+      "id": "8856",
+      "email": "test@example.com",
+      "question": "This is a test question to verify the API works",
+      "submittedAt": "2024-01-15T10:30:00.000Z"
+    },
+    {
+      "id": "572b",
+      "email": "test@example.com",
+      "question": "Test question with answered field",
+      "submittedAt": "2024-01-15T10:30:00.000Z",
+      "answered": false
+    },
+    {
+      "id": "89aa",
+      "email": "email@email.com",
+      "question": "asdfsadfasdfoiasdjfosaifjsdaof",
+      "submittedAt": "2025-06-28T22:44:42.221Z",
+      "answered": false
+    }
+  ],
+  "cta": {
+    "id": 1,
+    "eventName": "Mostra de Ballet Primavera 2024",
+    "h1Text": "Oportunidade de Performance de Ballet",
+    "pText": "Entre no centro das atenções e mostre seu talento em nossa próxima apresentação de ballet! Esta é sua chance de brilhar no palco, se apresentando para seus amigos e família. Junte-se a nós para uma experiência inesquecível."
+  }
+}

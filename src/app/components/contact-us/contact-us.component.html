@@ -1,1 +1,90 @@
-<p>contact-us works!</p>
+<div class='flex-grow-1'>
+  <h2 class='bravo-text-primary h4 fw-bold px-4 pb-3 pt-5'>Entre em Contato</h2>
+
+  @if (isSubmitted) {
+    <div class='container-fluid px-4 py-3'>
+      <div class='alert bravo-bg-primary-accent bravo-text-on-accent rounded-3 p-4 mb-3'>
+        <h5 class='fw-bold mb-2'>Obrigado pela sua pergunta!</h5>
+        <p class='mb-2'>Sua pergunta foi enviada com sucesso e será respondida o mais breve possível.</p>
+        <button
+          type='button'
+          class='btn bravo-bg-secondary-dark bravo-text-primary fw-bold rounded-pill px-4 mt-2'
+          style='height: 40px;'
+          (click)='resetForm()'>
+          Enviar Outra Pergunta
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (error) {
+    <div class='container-fluid px-4 py-3'>
+      <div class='alert alert-danger rounded-3 p-4 mb-3' style='background-color: #dc3545; color: white; border: none;'>
+        <p class='mb-0'>{{ error }}</p>
+      </div>
+    </div>
+  }
+
+  @if (!isSubmitted) {
+    <form [formGroup]='contactForm' (ngSubmit)='onSubmit()' novalidate>
+      <div class='container-fluid px-4 py-3'>
+        <div class='mb-3'>
+          <input
+            type='email'
+            formControlName='email'
+            class='form-control bravo-bg-secondary-dark bravo-text-primary rounded-3 p-4'
+            [class.is-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+            placeholder='Seu E-mail'
+            style='height: 56px; border: none; background-color: var(--bravo-secondary-dark); color: var(--bravo-text-primary);'>
+          @if (contactForm.get('email')?.invalid && contactForm.get('email')?.touched) {
+            <div class='invalid-feedback d-block bravo-text-secondary-medium small mt-1'>
+              @if (contactForm.get('email')?.errors?.['required']) {
+                E-mail é obrigatório.
+              }
+              @if (contactForm.get('email')?.errors?.['email']) {
+                Por favor, insira um endereço de e-mail válido.
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class='container-fluid px-4 py-3'>
+        <div class='mb-3'>
+          <textarea
+            formControlName='question'
+            class='form-control bravo-bg-secondary-dark bravo-text-primary rounded-3 p-4'
+            [class.is-invalid]="contactForm.get('question')?.invalid && contactForm.get('question')?.touched"
+            placeholder='Sua Pergunta (mínimo 10 caracteres)'
+            rows='4'
+            style='min-height: 144px; border: none; background-color: var(--bravo-secondary-dark); color: var(--bravo-text-primary);'></textarea>
+          @if (contactForm.get('question')?.invalid && contactForm.get('question')?.touched) {
+            <div class='invalid-feedback d-block bravo-text-secondary-medium small mt-1'>
+              @if (contactForm.get('question')?.errors?.['required']) {
+                Pergunta é obrigatória.
+              }
+              @if (contactForm.get('question')?.errors?.['minlength']) {
+                A pergunta deve ter pelo menos 10 caracteres.
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class='container-fluid px-4 py-3 d-flex justify-content-end'>
+        <button
+          type='submit'
+          class='btn bravo-bg-primary-accent bravo-text-on-accent fw-bold rounded-pill px-4'
+          [disabled]='contactForm.invalid || isSubmitting'
+          style='height: 40px; min-width: 84px;'>
+          @if (isSubmitting) {
+            <span class='spinner-border spinner-border-sm me-2' role='status' aria-hidden='true'></span>
+            Enviando...
+          } @else {
+            Enviar
+          }
+        </button>
+      </div>
+    </form>
+  }
+</div>

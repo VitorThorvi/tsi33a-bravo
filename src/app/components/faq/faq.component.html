@@ -1,1 +1,41 @@
-<p>faq works!</p>
+<div class='flex-grow-1'>
+  <h2 class='bravo-text-primary h4 fw-bold px-4 pb-3 pt-5'>Perguntas Frequentes</h2>
+
+  @if (loading) {
+    <div class='px-4'>
+      <div class='text-center bravo-text-primary'>
+        <p>Carregando perguntas frequentes...</p>
+      </div>
+    </div>
+  }
+
+  @if (error) {
+    <div class='px-4'>
+      <div class='text-center bravo-text-primary'>
+        <p>{{ error }}</p>
+      </div>
+    </div>
+  }
+
+  @if (!loading && !error && faqItems.length > 0) {
+    <div class='px-4'>
+      @for (item of faqItems; track item.id) {
+        <details class='d-flex flex-column border-top py-2' style='border-color: var(--bravo-border-accent);'>
+          <summary class='d-flex align-items-center justify-content-between gap-3 py-2' style='cursor: pointer;'>
+            <p class='bravo-text-primary small fw-medium mb-0'>{{ item.question }}</p>
+            <div class='bravo-text-primary'>
+              <svg xmlns='http://www.w3.org/2000/svg'
+                   width='20px'
+                   height='20px'
+                   fill='currentColor'
+                   viewBox='0 0 256 256'>
+                <path d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z'></path>
+              </svg>
+            </div>
+          </summary>
+          <p class='bravo-text-secondary-medium small pb-2'>{{ item.answer }}</p>
+        </details>
+      }
+    </div>
+  }
+</div>
