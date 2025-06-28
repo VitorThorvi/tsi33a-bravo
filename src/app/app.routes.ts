@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { SignedUserComponent } from './pages/signed-user/signed-user.component';
-import { LandingComponent } from './pages/landing/landing.component';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: LandingComponent,
+    component: SignInComponent,
   },
   {
     path: 'signed',
