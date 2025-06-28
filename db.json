@@ -46,5 +46,20 @@
       "question": "What should I bring to the performance?",
       "answer": "Please bring your instrument (if applicable), sheet music, a water bottle, and any personal items you might need. We provide music stands and basic equipment, but personal instruments should be brought by each performer."
     }
+  ],
+  "contacts": [
+    {
+      "id": "8856",
+      "email": "test@example.com",
+      "question": "This is a test question to verify the API works",
+      "submittedAt": "2024-01-15T10:30:00.000Z"
+    },
+    {
+      "id": "572b",
+      "email": "test@example.com",
+      "question": "Test question with answered field",
+      "submittedAt": "2024-01-15T10:30:00.000Z",
+      "answered": false
+    }
   ]
 }
