@@ -1,133 +1,70 @@
-<div>
-  <div>
-    <app-hero></app-hero>
-    <!--    form  -->
-    <app-footer></app-footer>
-  </div>
-  <div class='position-relative d-flex min-vh-100 flex-column justify-content-between overflow-hidden'
-       style="background-color: #221d11; font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;">
+<div class='position-relative d-flex min-vh-100 flex-column justify-content-between overflow-hidden'>
 
-    <!-- Main Content -->
-    <div>
-      <!-- Hero section with background image -->
-      <div class='container-fluid px-0'>
-        <div class='p-2 p-sm-3 p-md-4'>
-          <div class='w-100 d-flex flex-column justify-content-end overflow-hidden rounded-3'
-               class='min-vh-25 min-vh-sm-30 min-vh-md-25'
-               style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAuHOm5g1cgFbnqofyT5M9htiLynvm5OXsuKRW2CpNi0f_qFht69SHR0zVFddWQeiXXjBF1mPBIu_6TuOeHD1F1ISXxW0M3_ufxh4X-GXjsc5wqzIB51XN7hCsuddZ83R8qDnS6L5lM3yTcCqt1jvMpepz12G2GzijvyGwPAbPRvDXqIZ_AK0iIfgdzu6gbTgk6wSqXA2RgB0bKh647TPdqZRPfCgHGcWZNDc1Pbtj39dozTxFuXQbhFJ47pI5CyZHphY2LcqHHpw'); background-size: auto; background-position: center; background-repeat: no-repeat; background-color: #221d11; min-height: 15rem;">
-          </div>
-        </div>
-      </div>
-
-      <!-- Welcome text -->
-      <div class='container-fluid'>
-        <div class='row justify-content-center'>
-          <div class='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5'>
-            <h2 class='text-white fw-bold text-center px-3 px-sm-4 pb-3 pt-4 pt-sm-5'
-                style='font-size: clamp(24px, 5vw, 32px); line-height: 1.2; letter-spacing: -0.025em;'>
-              Welcome Back
-            </h2>
-            <p class='text-white text-center px-3 px-sm-4 pb-3 pt-1'
-               style='font-size: clamp(14px, 3vw, 16px); line-height: normal;'>
-              Log in to access your events and tickets
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Form Container -->
-      <div class='container-fluid'>
-        <div class='row justify-content-center'>
-          <div class='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5'>
-
-            <!-- Email input -->
-            <div class='px-3 px-sm-4 py-2 py-sm-3'>
-              <div class='d-flex flex-column'>
-                <input class='form-control border-0 text-white'
-                       placeholder='Email'
-                       style='background-color: #483e23; border-radius: 0.75rem; height: 3rem; padding: 0.75rem 1rem; font-size: clamp(14px, 3vw, 16px); line-height: normal;'
-                       type='email'
-                       value=''>
-              </div>
-            </div>
-
-            <!-- Password input -->
-            <div class='px-3 px-sm-4 py-2 py-sm-3'>
-              <div class='d-flex flex-column'>
-                <input class='form-control border-0 text-white'
-                       placeholder='Password'
-                       style='background-color: #483e23; border-radius: 0.75rem; height: 3rem; padding: 0.75rem 1rem; font-size: clamp(14px, 3vw, 16px); line-height: normal;'
-                       type='password'
-                       value=''>
-              </div>
-            </div>
-
-            <!-- Login button -->
-            <div class='px-3 px-sm-4 py-2 py-sm-3' routerLink='/signed'>
-              <button class='btn d-flex align-items-center justify-content-center w-100 rounded-pill fw-bold'
-                      style='background-color: #f4c653; color: #221d11; height: 3rem; padding: 0 1.25rem; font-size: clamp(14px, 3vw, 16px); line-height: normal; letter-spacing: 0.015em;'>
-                <span class='text-truncate'>Log In</span>
-              </button>
-            </div>
-
-          </div>
+  <div class='d-flex w-100 flex-column align-items-center'>
+    <!-- Hero Section -->
+    <div class='container-fluid p-0'>
+      <div class='p-2 p-sm-3 p-md-4'>
+        <div class='hero-image w-100 d-flex flex-column justify-content-end overflow-hidden rounded-3 bravo-bg-primary-dark'
+             style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAuHOm5g1cgFbnqofyT5M9htiLynvm5OXsuKRW2CpNi0f_qFht69SHR0zVFddWQeiXXjBF1mPBIu_6TuOeHD1F1ISXxW0M3_ufxh4X-GXjsc5wqzIB51XN7hCsuddZ83R8qDnS6L5lM3yTcCqt1jvMpepz12G2GzijvyGwPAbPRvDXqIZ_AK0iIfgdzu6gbTgk6wSqXA2RgB0bKh647TPdqZRPfCgHGcWZNDc1Pbtj39dozTxFuXQbhFJ47pI5CyZHphY2LcqHHpw"); background-position: center; background-repeat: no-repeat; min-height: 15rem;'>
         </div>
       </div>
     </div>
 
-    <!-- Footer section -->
-    <div class='mt-auto'>
-      <div class='container-fluid'>
-        <div class='row justify-content-center'>
-          <div class='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5'>
-            <p class='text-center px-3 px-sm-4 pb-3 pt-1 text-decoration-underline mb-0'
-               style='color: #caba91; font-size: clamp(12px, 2.5vw, 14px); line-height: normal;'>
-              Don't have an account? Sign up
-            </p>
-          </div>
+    <!-- Welcome Text -->
+    <div class='container'>
+      <div class='row justify-content-center'>
+        <div class='col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5'>
+          <h2 class='bravo-text-primary fw-bold text-center p-3 pb-3 pt-4 pt-sm-5 fs-1'>
+            Bem vindo de volta!
+          </h2>
         </div>
       </div>
+    </div>
 
-      <footer class='py-4 py-sm-5'>
-        <div class='container-fluid'>
-          <!-- Footer links - responsive layout -->
-          <div class='row justify-content-center mb-3 mb-sm-4'>
-            <div class='col-12'>
-              <div class='d-flex flex-column flex-sm-row align-items-center justify-content-center justify-content-sm-around flex-wrap gap-3 gap-sm-4 px-3 px-sm-5'>
-                <a class='text-decoration-none text-center' href='#'
-                   style='color: #caba91; font-size: clamp(12px, 2.5vw, 16px); line-height: normal; white-space: nowrap;'>
-                  About Us
-                </a>
-                <a class='text-decoration-none text-center' href='#'
-                   style='color: #caba91; font-size: clamp(12px, 2.5vw, 16px); line-height: normal; white-space: nowrap;'>
-                  Contact
-                </a>
-                <a class='text-decoration-none text-center' href='#'
-                   style='color: #caba91; font-size: clamp(12px, 2.5vw, 16px); line-height: normal; white-space: nowrap;'>
-                  Privacy Policy
-                </a>
-                <a class='text-decoration-none text-center' href='#'
-                   style='color: #caba91; font-size: clamp(12px, 2.5vw, 16px); line-height: normal; white-space: nowrap;'>
-                  Terms of Service
-                </a>
-              </div>
-            </div>
-          </div>
+    <!-- Form Section -->
+    <div class='container'>
+      <div class='row justify-content-center'>
+        <div class='col-12 col-sm-10 col-md-8 col-lg-12'>
 
-          <!-- Copyright -->
-          <div class='row justify-content-center'>
-            <div class='col-12'>
-              <p class='text-center mb-0 px-3 px-sm-5'
-                 style='color: #caba91; font-size: clamp(12px, 2.5vw, 16px); line-height: normal;'>
-                © 2024 Bravo. All rights reserved.
-              </p>
+          <form (ngSubmit)='onSubmit()' [formGroup]='signInForm' class='d-flex flex-column'>
+            <!-- Email Input -->
+            <div class='py-2 py-sm-3'>
+              <app-form-input
+                [control]='emailControl'
+                label='Email'
+                placeholder='Email'
+                type='email'
+              ></app-form-input>
             </div>
-          </div>
+
+            <!-- Password Input -->
+            <div class='py-2 py-sm-3'>
+              <app-form-input
+                [control]='passwordControl'
+                label='Senha'
+                placeholder='Senha'
+                type='password'
+              ></app-form-input>
+            </div>
+
+            <!-- Login Button -->
+            <div class='w-100 py-2 py-sm-3'>
+              <app-primary-button (buttonClick)='onSubmit()'
+                                  [fullWidth]='true'
+                                  [isDisabled]='signInForm.invalid'
+                                  buttonText='Entrar'
+                                  class='w-100'
+                                  type='submit'
+              ></app-primary-button>
+            </div>
+          </form>
+
         </div>
-      </footer>
-
-      <div class='d-block d-sm-none' style='height: 0.75rem; background-color: #221d11;'></div>
-      <div class='d-none d-sm-block' style='height: 1.25rem; background-color: #221d11;'></div>
+      </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
+
 </div>
