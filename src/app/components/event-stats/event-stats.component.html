@@ -1,5 +1,12 @@
 <div class='flex-grow-1'>
-  <h2 class='bravo-text-primary h4 fw-bold px-4 pb-3 pt-5'>Estatísticas do Evento</h2>
+  <h1 class='bravo-text-primary h3 fw-bold text-center py-4'>
+    @if (activeEvent) {
+      {{ activeEvent.eventName }}
+    } @else {
+      Evento
+    }
+  </h1>
+  <h2 class='bravo-text-primary h4 fw-bold px-4 pb-3 pt-5'>Estatísticas do Evento </h2>
 
   @if (loading) {
     <div class='container-fluid px-4 py-3'>
@@ -22,8 +29,7 @@
       <div class='row g-3'>
         @for (stat of eventStats; track stat.id) {
           <div class='col-6 col-md-4'>
-            <div class='card bravo-bg-secondary-dark rounded-3 p-4 h-100 text-center'
-                 style='border: 1px solid var(--bravo-border-accent);'>
+            <div class='card bravo-bg-secondary-dark bravo-border-accent rounded-3 p-4 h-100 text-center border'>
               <div class='card-body p-0'>
                 <h3 class='bravo-text-primary h6 fw-medium mb-2'>{{ stat.name }}</h3>
                 <div class='bravo-text-primary display-6 fw-bold'>{{ stat.value }}</div>

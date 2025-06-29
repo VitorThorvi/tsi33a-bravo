@@ -1,12 +1,11 @@
-<div class='firebase-form-container'>
+<div>
   <!-- Messages Section -->
   @if (submissionError || submissionSuccess) {
     <div class='container'>
       <div class='row justify-content-center'>
         <div class='col-12'>
           @if (submissionError) {
-            <div class='alert alert-danger rounded-3 p-3 mb-3'
-                 style='background-color: #dc3545; color: white; border: none;'>
+            <div class='alert alert-danger rounded-3 p-3 mb-3'>
               <p class='mb-0 text-center'>{{ submissionError }}</p>
             </div>
           }
@@ -41,7 +40,6 @@
         [buttonText]="isLoading ? 'Processing...' : submitButtonText"
         [fullWidth]='true'
         [isDisabled]='firebaseForm.invalid || isLoading'
-        class='w-100'
         type='submit'
       ></app-primary-button>
     </div>

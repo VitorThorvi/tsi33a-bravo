@@ -4,6 +4,7 @@ import {
   EventStatsService,
   IEventStatisticsWithId,
 } from '../../services/event-stats.service';
+import { EventDocument, EventService } from '../../services/event.service';
 
 export interface DisplayStat {
   id: string;
@@ -19,12 +20,15 @@ export interface DisplayStat {
 })
 export class EventStatsComponent implements OnInit {
   eventStats: DisplayStat[] = [];
+  activeEvent: EventDocument | null = null;
   loading = true;
   error: string | null = null;
   private eventStatsService = inject(EventStatsService);
+  private eventService = inject(EventService);
 
   ngOnInit(): void {
     this.loadEventStats();
+    this.loadActiveEvent();
   }
 
   private loadEventStats(): void {
@@ -37,6 +41,17 @@ export class EventStatsComponent implements OnInit {
         this.error = 'Falha ao carregar estatísticas do evento';
         this.loading = false;
         console.error('Error loading event stats:', err);
+      },
+    });
+  }
+
+  private loadActiveEvent(): void {
+    this.eventService.getActiveEvent().subscribe({
+      next: (event) => {
+        this.activeEvent = event;
+      },
+      error: (err) => {
+        console.error('Error loading active event:', err);
       },
     });
   }
