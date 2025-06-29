@@ -37,10 +37,6 @@ export interface ContactUsQuestionDocument extends ContactUsQuestionSubmission {
 export class FirebaseContactUsQuestionService {
   private firestore = inject(Firestore);
 
-  private get contactUsQuestionsCollection() {
-    return collection(this.firestore, 'contact-us-questions');
-  }
-
   submitContactUsQuestion(
     submission: Omit<
       ContactUsQuestionSubmission,
@@ -56,14 +52,13 @@ export class FirebaseContactUsQuestionService {
     };
 
     return from(
-      addDoc(this.contactUsQuestionsCollection, submissionWithTimestamp),
+      addDoc(this.getContactUsQuestionsCollection(), submissionWithTimestamp),
     ).pipe(
       map((docRef) => ({
         id: docRef.id,
         ...submissionWithTimestamp,
       })),
-      catchError((error) => {
-        console.error('Error submitting question:', error);
+      catchError(() => {
         return of(null);
       }),
     );
@@ -100,15 +95,14 @@ export class FirebaseContactUsQuestionService {
         }
         return null;
       }),
-      catchError((error) => {
-        console.error('Error getting contact:', error);
+      catchError(() => {
         return of(null);
       }),
     );
   }
 
   getAllContactUsQuestions(): Observable<ContactUsQuestionDocument[]> {
-    return from(getDocs(this.contactUsQuestionsCollection)).pipe(
+    return from(getDocs(this.getContactUsQuestionsCollection())).pipe(
       map((querySnapshot) => {
         return querySnapshot.docs.map((doc) => {
           const data = doc.data() as Omit<ContactUsQuestionDocument, 'id'>;
@@ -126,8 +120,7 @@ export class FirebaseContactUsQuestionService {
           };
         });
       }),
-      catchError((error) => {
-        console.error('Error getting contacts:', error);
+      catchError(() => {
         return of([]);
       }),
     );
@@ -135,7 +128,7 @@ export class FirebaseContactUsQuestionService {
 
   getUnansweredContactUsQuestions(): Observable<ContactUsQuestionDocument[]> {
     const unansweredQuery = query(
-      this.contactUsQuestionsCollection,
+      this.getContactUsQuestionsCollection(),
       where('answered', '==', false),
     );
 
@@ -157,8 +150,7 @@ export class FirebaseContactUsQuestionService {
           };
         });
       }),
-      catchError((error) => {
-        console.error('Error getting unanswered contacts:', error);
+      catchError(() => {
         return of([]);
       }),
     );
@@ -179,8 +171,7 @@ export class FirebaseContactUsQuestionService {
 
     return from(updateDoc(contactUsQuestionDoc, updateData)).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error marking contact as answered:', error);
+      catchError(() => {
         return of(false);
       }),
     );
@@ -204,8 +195,7 @@ export class FirebaseContactUsQuestionService {
 
     return from(updateDoc(contactUsQuestionDoc, updateData)).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error updating contact:', error);
+      catchError(() => {
         return of(false);
       }),
     );
@@ -220,10 +210,13 @@ export class FirebaseContactUsQuestionService {
 
     return from(deleteDoc(contactUsQuestionDoc)).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error deleting contact:', error);
+      catchError(() => {
         return of(false);
       }),
     );
+  }
+
+  private getContactUsQuestionsCollection() {
+    return collection(this.firestore, 'contact-us-questions');
   }
 }

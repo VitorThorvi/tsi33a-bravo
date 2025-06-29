@@ -25,18 +25,16 @@ export interface AuthResult {
   providedIn: 'root',
 })
 export class AuthService {
-  private auth = inject(Auth);
-  private router = inject(Router);
-  private userService = inject(UserService);
-  private googleProvider = new GoogleAuthProvider();
-
   // Reactive signals for auth state
   currentUser = signal<IUserProps | null>(null);
   isAuthenticated = signal<boolean>(false);
   isLoading = signal<boolean>(false);
-
+  private auth = inject(Auth);
   // Observable for auth state changes
   user$ = user(this.auth);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private googleProvider = new GoogleAuthProvider();
 
   constructor() {
     // Listen to auth state changes
@@ -89,16 +87,8 @@ export class AuthService {
               this.userService
                 .createUser(credential.user.uid, userProps)
                 .subscribe({
-                  next: (success) => {
-                    if (success) {
-                      console.log(
-                        'User document created in Firestore during login',
-                      );
-                    } else {
-                      console.error(
-                        'Failed to create user document in Firestore during login',
-                      );
-                    }
+                  next: () => {
+                    // User document creation handled silently in production
                   },
                 });
 
@@ -153,14 +143,8 @@ export class AuthService {
             return this.userService
               .createUser(credential.user.uid, userProps)
               .pipe(
-                map((success) => {
-                  if (success) {
-                    console.log('New user document created in Firestore');
-                  } else {
-                    console.error(
-                      'Failed to create user document in Firestore',
-                    );
-                  }
+                map(() => {
+                  // User document creation handled silently in production
 
                   this.currentUser.set(userProps);
                   this.isAuthenticated.set(true);
@@ -225,16 +209,8 @@ export class AuthService {
               return this.userService
                 .createUser(credential.user.uid, userProps)
                 .pipe(
-                  map((success) => {
-                    if (success) {
-                      console.log(
-                        'New Google user document created in Firestore',
-                      );
-                    } else {
-                      console.error(
-                        'Failed to create Google user document in Firestore',
-                      );
-                    }
+                  map(() => {
+                    // User document creation handled silently in production
 
                     this.currentUser.set(userProps);
                     this.isAuthenticated.set(true);
@@ -277,15 +253,33 @@ export class AuthService {
           message: 'Logout realizado com sucesso!',
         };
       }),
-      catchError((error) => {
+      catchError(() => {
         this.isLoading.set(false);
-        console.error('Logout error:', error);
         return of({
           success: false,
           message: 'Erro ao fazer logout',
         });
       }),
     );
+  }
+
+  // Check if user has specific userType
+  hasUserType(userType: 'owner' | 'admin' | 'user'): boolean {
+    const currentUser = this.currentUser();
+    return currentUser?.userType === userType;
+  }
+
+  // Check if user has admin or owner privileges
+  hasAdminPrivileges(): boolean {
+    const currentUser = this.currentUser();
+    return (
+      currentUser?.userType === 'admin' || currentUser?.userType === 'owner'
+    );
+  }
+
+  // Check if user is owner
+  isOwner(): boolean {
+    return this.hasUserType('owner');
   }
 
   // Helper method to create IUserProps from Firebase User
@@ -330,12 +324,8 @@ export class AuthService {
 
           // Store user in Firestore
           this.userService.createUser(firebaseUser.uid, userProps).subscribe({
-            next: (success) => {
-              if (success) {
-                console.log('User document created in Firestore');
-              } else {
-                console.error('Failed to create user document in Firestore');
-              }
+            next: () => {
+              // User document creation handled silently in production
             },
           });
 
@@ -343,10 +333,9 @@ export class AuthService {
           this.isAuthenticated.set(true);
         }
       },
-      error: (error) => {
-        console.error('Error retrieving user from Firestore:', error);
+      error: () => {
         // Fallback to email pattern
-        // approach
+        // approach on error
         const userType = this.getUserType(firebaseUser.email);
         const userProps = this.createUserProps(firebaseUser, userType);
         this.currentUser.set(userProps);
@@ -389,24 +378,5 @@ export class AuthService {
       default:
         return 'Erro de autenticação. Tente novamente';
     }
-  }
-
-  // Check if user has specific userType
-  hasUserType(userType: 'owner' | 'admin' | 'user'): boolean {
-    const currentUser = this.currentUser();
-    return currentUser?.userType === userType;
-  }
-
-  // Check if user has admin or owner privileges
-  hasAdminPrivileges(): boolean {
-    const currentUser = this.currentUser();
-    return (
-      currentUser?.userType === 'admin' || currentUser?.userType === 'owner'
-    );
-  }
-
-  // Check if user is owner
-  isOwner(): boolean {
-    return this.hasUserType('owner');
   }
 }

@@ -12,10 +12,10 @@ import {
   styleUrl: './faq.component.scss',
 })
 export class FaqComponent implements OnInit {
-  private firebaseFaqService = inject(FirebaseFaqService);
   faqItems: FaqDocument[] = [];
   loading = true;
   error: string | null = null;
+  private firebaseFaqService = inject(FirebaseFaqService);
 
   ngOnInit(): void {
     this.loadFaqItems();

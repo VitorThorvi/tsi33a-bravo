@@ -11,9 +11,9 @@ service cloud.firestore {
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];
     }
 
-    // Events collection - read access for authenticated users, write access for admins/owners
+    // Events collection - read access for all, write access for admins/owners
     match /events/{eventId} {
-      allow read: if request.auth != null;
+      allow read: if true;
       allow write: if request.auth != null &&
         exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];

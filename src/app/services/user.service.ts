@@ -24,10 +24,6 @@ export interface UserDocument extends IUserProps {
 export class UserService {
   private firestore = inject(Firestore);
 
-  private get usersCollection() {
-    return collection(this.firestore, 'users');
-  }
-
   // Create or update user document in Firestore
   createUser(uid: string, userData: IUserProps): Observable<boolean> {
     const userDoc = doc(this.firestore, 'users', uid);
@@ -40,8 +36,7 @@ export class UserService {
 
     return from(setDoc(userDoc, userDocumentData)).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error creating user document:', error);
+      catchError(() => {
         return of(false);
       }),
     );
@@ -70,8 +65,7 @@ export class UserService {
         }
         return null;
       }),
-      catchError((error) => {
-        console.error('Error getting user document:', error);
+      catchError(() => {
         return of(null);
       }),
     );
@@ -79,7 +73,10 @@ export class UserService {
 
   // Get user document from Firestore by email
   getUserByEmail(email: string): Observable<UserDocument | null> {
-    const userQuery = query(this.usersCollection, where('email', '==', email));
+    const userQuery = query(
+      this.getUsersCollection(),
+      where('email', '==', email),
+    );
 
     return from(getDocs(userQuery)).pipe(
       map((querySnapshot) => {
@@ -101,8 +98,7 @@ export class UserService {
         }
         return null;
       }),
-      catchError((error) => {
-        console.error('Error getting user by email:', error);
+      catchError(() => {
         return of(null);
       }),
     );
@@ -121,8 +117,7 @@ export class UserService {
 
     return from(setDoc(userDoc, updateData, { merge: true })).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error updating user role:', error);
+      catchError(() => {
         return of(false);
       }),
     );
@@ -145,5 +140,9 @@ export class UserService {
       return 'admin';
     }
     return 'user';
+  }
+
+  private getUsersCollection() {
+    return collection(this.firestore, 'users');
   }
 }

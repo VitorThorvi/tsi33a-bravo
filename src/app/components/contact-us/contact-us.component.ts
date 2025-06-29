@@ -18,15 +18,14 @@ import {
   styleUrl: './contact-us.component.scss',
 })
 export class ContactUsComponent {
-  private fb = inject(FormBuilder);
-  private firebaseContactUsQuestionService = inject(
-    FirebaseContactUsQuestionService,
-  );
-
   contactForm: FormGroup;
   isSubmitting = false;
   isSubmitted = false;
   error: string | null = null;
+  private fb = inject(FormBuilder);
+  private firebaseContactUsQuestionService = inject(
+    FirebaseContactUsQuestionService,
+  );
 
   constructor() {
     this.contactForm = this.fb.group({

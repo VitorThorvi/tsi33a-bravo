@@ -3,11 +3,11 @@
     <div class='col-12'>
       <div class='d-flex justify-content-center px-3 px-sm-4 py-2 py-sm-3'>
         <button
-          class='w-100 btn bravo-bg-secondary-medium bravo-text-primary fw-bold rounded-pill d-flex align-items-center justify-content-center'
+          (click)='onButtonClick()'
           [class.w-100]='fullWidth'
           [disabled]='isDisabled'
           [type]='type'
-          (click)='onButtonClick()'
+          class='w-100 btn bravo-bg-secondary-medium bravo-text-primary fw-bold rounded-pill d-flex align-items-center justify-content-center'
           style='height: 40px; background-color: var(--bravo-border-accent);'>
           <span class='text-truncate'>{{ buttonText }}</span>
         </button>

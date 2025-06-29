@@ -1,7 +1,8 @@
 # BRAVO!
 
 ## Description
-An application to promote live dance events in theaters for dance school students. 
+
+An application to promote live dance events in theaters for dance school students.
 
 This application is developed under the TSI33A – Front-End Applications Development Using Frameworks and Components course and is a part of Systems for Internet undergraduate course at Federal University of Technology – Paraná, Guarapuava Campus.
 
@@ -24,7 +25,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 **Dependencies:**: Lista das bibliotecas JavaScript utilizadas.
 
 [//]: # (todo LAST : add URL to application)
-**Application hosted at:** https:// bravo 
+**Application hosted at:** https:// bravo
 
 [//]: # (todo LAST : add images from the application)
 **Bravo! pictures:** img img img
@@ -32,7 +33,6 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ---
 
 ## TSI33A's requirements checklist
-
 
 RA1 - **Prototipar e projetar interfaces gráficas de usuário, considerando princípios de usabilidade e experiência do usuário**.
 
@@ -81,9 +81,6 @@ RA7 - **Gerenciar o código-fonte de maneira eficiente, implementar boas prátic
 - [ ] ID25: Criar um repositório no GitHub utilizando a estrutura do Gitflow, estabelecendo as branches "main" e "develop".
 - [ ] ID26: Colaborar com outros membros do projeto, realizando fusões (merges) e resolução de conflitos.
 - [ ] ID27: Planejar, configurar e executar o processo de build da aplicação, preparando-a para produção e realizar o deploy em um ambiente de hospedagem.
-
-
-
 
 ## How to run this application
 

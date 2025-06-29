@@ -6,10 +6,10 @@
   <input
     [formControl]='control'
     [id]='inputId'
-    [type]='type'
-    [placeholder]='placeholder'
-    class='form-control'
     [ngClass]="{ 'is-invalid': control.touched && control.invalid }"
+    [placeholder]='placeholder'
+    [type]='type'
+    class='form-control'
   />
   <div *ngIf='control.touched && control.invalid' class='invalid-feedback d-block'>
     <div *ngIf="control.hasError('required')">This field is required.</div>

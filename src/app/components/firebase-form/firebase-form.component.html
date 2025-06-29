@@ -38,9 +38,9 @@
     <div class='py-2 py-sm-3'>
       <app-primary-button
         (buttonClick)='onSubmit()'
+        [buttonText]="isLoading ? 'Processing...' : submitButtonText"
         [fullWidth]='true'
         [isDisabled]='firebaseForm.invalid || isLoading'
-        [buttonText]="isLoading ? 'Processing...' : submitButtonText"
         class='w-100'
         type='submit'
       ></app-primary-button>

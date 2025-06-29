@@ -24,12 +24,11 @@ export interface FaqItem {
 })
 export class FaqService {
   private firestore = inject(Firestore);
-  private faqCollection = collection(this.firestore, 'faq');
 
   getFaqItems(): Observable<FaqItem[]> {
-    return collectionData(this.faqCollection, { idField: 'id' }) as Observable<
-      FaqItem[]
-    >;
+    return collectionData(this.getFaqCollection(), {
+      idField: 'id',
+    }) as Observable<FaqItem[]>;
   }
 
   getFaqItem(id: string): Observable<FaqItem> {
@@ -40,29 +39,45 @@ export class FaqService {
   async addFaqItem(
     faqItem: Omit<FaqItem, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<string> {
-    const faqData = {
-      ...faqItem,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    const docRef = await addDoc(this.faqCollection, faqData);
-    return docRef.id;
+    try {
+      const faqData = {
+        ...faqItem,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      const docRef = await addDoc(this.getFaqCollection(), faqData);
+      return docRef.id;
+    } catch {
+      throw new Error('Failed to create FAQ item');
+    }
   }
 
   async updateFaqItem(
     id: string,
     faqItem: Partial<Omit<FaqItem, 'id' | 'createdAt' | 'updatedAt'>>,
   ): Promise<void> {
-    const faqDoc = doc(this.firestore, `faq/${id}`);
-    const updateData = {
-      ...faqItem,
-      updatedAt: new Date(),
-    };
-    await updateDoc(faqDoc, updateData);
+    try {
+      const faqDoc = doc(this.firestore, `faq/${id}`);
+      const updateData = {
+        ...faqItem,
+        updatedAt: new Date(),
+      };
+      await updateDoc(faqDoc, updateData);
+    } catch {
+      throw new Error('Failed to update FAQ item');
+    }
   }
 
   async deleteFaqItem(id: string): Promise<void> {
-    const faqDoc = doc(this.firestore, `faq/${id}`);
-    await deleteDoc(faqDoc);
+    try {
+      const faqDoc = doc(this.firestore, `faq/${id}`);
+      await deleteDoc(faqDoc);
+    } catch {
+      throw new Error('Failed to delete FAQ item');
+    }
+  }
+
+  private getFaqCollection() {
+    return collection(this.firestore, 'faq');
   }
 }

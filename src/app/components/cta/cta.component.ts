@@ -9,14 +9,13 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
   imports: [PrimaryButtonComponent],
 })
 export class CtaComponent {
-  private router = inject(Router);
-
   @Input() eventName = '';
   @Input() h1Text = '';
   @Input() h2Text = '';
   @Input() pText = '';
   @Input() buttonText = '';
   @Input() routeTo = '';
+  private router = inject(Router);
 
   onButtonClick(): void {
     if (this.routeTo) {

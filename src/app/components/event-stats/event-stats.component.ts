@@ -18,10 +18,10 @@ export interface DisplayStat {
   styleUrl: './event-stats.component.scss',
 })
 export class EventStatsComponent implements OnInit {
-  private eventStatsService = inject(EventStatsService);
   eventStats: DisplayStat[] = [];
   loading = true;
   error: string | null = null;
+  private eventStatsService = inject(EventStatsService);
 
   ngOnInit(): void {
     this.loadEventStats();

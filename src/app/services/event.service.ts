@@ -9,7 +9,7 @@ import {
   getDocs,
   updateDoc,
 } from '@angular/fire/firestore';
-import { catchError, from, map, Observable, of } from 'rxjs';
+import { catchError, defer, from, map, Observable, of } from 'rxjs';
 import { IEventProps } from '../model/event/IEventProps';
 import { IEventStatistics } from '../model/event/IEventStatistics';
 
@@ -31,14 +31,6 @@ export interface EventStatisticsDocument extends IEventStatistics {
 export class EventService {
   private firestore = inject(Firestore);
 
-  private get eventsCollection() {
-    return collection(this.firestore, 'events');
-  }
-
-  private get eventStatisticsCollection() {
-    return collection(this.firestore, 'event-statistics');
-  }
-
   // Event CRUD operations
   createEvent(eventData: IEventProps): Observable<string | null> {
     const eventDocumentData: Omit<EventDocument, 'id'> = {
@@ -47,7 +39,7 @@ export class EventService {
       updatedAt: new Date(),
     };
 
-    return from(addDoc(this.eventsCollection, eventDocumentData)).pipe(
+    return from(addDoc(this.getEventsCollection(), eventDocumentData)).pipe(
       map((docRef) => docRef.id),
       catchError((error) => {
         console.error('Error creating event:', error);
@@ -86,7 +78,7 @@ export class EventService {
   }
 
   getAllEvents(): Observable<EventDocument[]> {
-    return from(getDocs(this.eventsCollection)).pipe(
+    return from(getDocs(this.getEventsCollection())).pipe(
       map((querySnapshot) => {
         return querySnapshot.docs.map((doc) => {
           const data = doc.data() as Omit<EventDocument, 'id'>;
@@ -112,7 +104,7 @@ export class EventService {
   }
 
   getActiveEvent(): Observable<EventDocument | null> {
-    return from(getDocs(this.eventsCollection)).pipe(
+    return defer(() => from(getDocs(this.getEventsCollection()))).pipe(
       map((querySnapshot) => {
         const activeDoc = querySnapshot.docs.find((doc) => {
           const data = doc.data() as Omit<EventDocument, 'id'>;
@@ -185,7 +177,7 @@ export class EventService {
     };
 
     return from(
-      addDoc(this.eventStatisticsCollection, statisticsDocumentData),
+      addDoc(this.getEventStatisticsCollection(), statisticsDocumentData),
     ).pipe(
       map((docRef) => docRef.id),
       catchError((error) => {
@@ -232,7 +224,7 @@ export class EventService {
   getEventStatisticsByEventName(
     eventName: string,
   ): Observable<EventStatisticsDocument | null> {
-    return from(getDocs(this.eventStatisticsCollection)).pipe(
+    return from(getDocs(this.getEventStatisticsCollection())).pipe(
       map((querySnapshot) => {
         const matchingDoc = querySnapshot.docs.find((doc) => {
           const data = doc.data() as Omit<EventStatisticsDocument, 'id'>;
@@ -267,7 +259,7 @@ export class EventService {
   }
 
   getAllEventStatistics(): Observable<EventStatisticsDocument[]> {
-    return from(getDocs(this.eventStatisticsCollection)).pipe(
+    return from(getDocs(this.getEventStatisticsCollection())).pipe(
       map((querySnapshot) => {
         return querySnapshot.docs.map((doc) => {
           const data = doc.data() as Omit<EventStatisticsDocument, 'id'>;
@@ -321,5 +313,13 @@ export class EventService {
         return of(false);
       }),
     );
+  }
+
+  private getEventsCollection() {
+    return collection(this.firestore, 'events');
+  }
+
+  private getEventStatisticsCollection() {
+    return collection(this.firestore, 'event-statistics');
   }
 }

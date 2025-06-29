@@ -1,53 +1,4 @@
-<div>
-  <!-- User Info Header -->
-  @if (isAuthenticated && currentUser) {
-    <div class='container-fluid bravo-bg-secondary-dark py-3'>
-      <div class='row align-items-center'>
-        <div class='col-12 col-md-8'>
-          <div class='d-flex align-items-center gap-3'>
-            <div class='bravo-bg-primary-accent rounded-circle d-flex align-items-center justify-content-center'
-                 style='width: 48px; height: 48px;'>
-              <span class='bravo-text-on-accent fw-bold'>
-                {{ currentUser.name.charAt(0).toUpperCase() }}
-              </span>
-            </div>
-            <div>
-              <h5 class='bravo-text-primary mb-0'>{{ currentUser.name }}</h5>
-              <p class='bravo-text-secondary-medium small mb-0'>{{ currentUser.email }}</p>
-              <span class='badge bravo-bg-primary-accent bravo-text-on-accent small'>
-                {{
-                  currentUser.userType === 'owner' ? 'Proprietário' :
-                    currentUser.userType === 'admin' ? 'Administrador' : 'Usuário'
-                }}
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class='col-12 col-md-4 mt-3 mt-md-0'>
-          <div class='d-flex gap-2 justify-content-md-end'>
-            @if (hasAdminPrivileges) {
-              <button
-                type='button'
-                (click)='navigateToAdmin()'
-                class='btn bravo-bg-secondary-medium bravo-text-primary fw-bold rounded-pill px-3'
-                style='height: 36px;'>
-                <small>Painel Admin</small>
-              </button>
-            }
-            <button
-              type='button'
-              (click)='onSignOut()'
-              class='btn btn-outline-light fw-bold rounded-pill px-3'
-              style='height: 36px; border-color: var(--bravo-border-accent);'>
-              <small>Sair</small>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  }
-
-  <!--  header  -->
+<div class='col-12 d-flex flex-column justify-content-center'>
   <div class='header-container text-center'>
     @if (!loading && !error && activeEvent) {
       <app-cta
@@ -66,7 +17,7 @@
       <div class='ratio ratio-16x9'>
         @if (!loading && !error && activeEvent && activeEvent.eventVideoUrl) {
           <iframe
-            [src]='activeEvent.eventVideoUrl'
+             [src]='getSafeVideoUrl(activeEvent.eventVideoUrl)'
             title='Player de vídeo do YouTube'
             frameborder='0'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'

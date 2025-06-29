@@ -71,9 +71,9 @@
             <!-- Login Button -->
             <div class='py-2 py-sm-3'>
               <app-primary-button (buttonClick)='onSubmit()'
+                                  [buttonText]="isLoading ? 'Entrando...' : 'Entrar'"
                                   [fullWidth]='true'
                                   [isDisabled]='signInForm.invalid || isLoading'
-                                  [buttonText]="isLoading ? 'Entrando...' : 'Entrar'"
                                   class='w-100'
                                   type='submit'
               ></app-primary-button>
@@ -91,11 +91,11 @@
             <!-- Google Sign In Button -->
             <div class='w-100 py-2 py-sm-3'>
               <button
-                type='button'
                 (click)='onGoogleSignIn()'
                 [disabled]='isLoading'
                 class='btn w-100 d-flex align-items-center justify-content-center gap-3 bravo-bg-secondary-dark bravo-text-primary fw-bold rounded-3 p-3'
-                style='height: 56px; border: 1px solid var(--bravo-border-accent);'>
+                style='height: 56px; border: 1px solid var(--bravo-border-accent);'
+                type='button'>
                 @if (isLoading) {
                   <span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>
                   <span>Entrando com Google...</span>

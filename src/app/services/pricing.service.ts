@@ -25,10 +25,9 @@ export interface PricingOption {
 })
 export class PricingService {
   private firestore = inject(Firestore);
-  private pricingCollection = collection(this.firestore, 'pricing');
 
   getPricingOptions(): Observable<PricingOption[]> {
-    return collectionData(this.pricingCollection, {
+    return collectionData(this.getPricingCollection(), {
       idField: 'id',
     }) as Observable<PricingOption[]>;
   }
@@ -41,13 +40,17 @@ export class PricingService {
   async addPricingOption(
     pricingOption: Omit<PricingOption, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<string> {
-    const pricingData = {
-      ...pricingOption,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    const docRef = await addDoc(this.pricingCollection, pricingData);
-    return docRef.id;
+    try {
+      const pricingData = {
+        ...pricingOption,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      const docRef = await addDoc(this.getPricingCollection(), pricingData);
+      return docRef.id;
+    } catch {
+      throw new Error('Failed to create pricing option');
+    }
   }
 
   async updatePricingOption(
@@ -56,16 +59,28 @@ export class PricingService {
       Omit<PricingOption, 'id' | 'createdAt' | 'updatedAt'>
     >,
   ): Promise<void> {
-    const pricingDoc = doc(this.firestore, `pricing/${id}`);
-    const updateData = {
-      ...pricingOption,
-      updatedAt: new Date(),
-    };
-    await updateDoc(pricingDoc, updateData);
+    try {
+      const pricingDoc = doc(this.firestore, `pricing/${id}`);
+      const updateData = {
+        ...pricingOption,
+        updatedAt: new Date(),
+      };
+      await updateDoc(pricingDoc, updateData);
+    } catch {
+      throw new Error('Failed to update pricing option');
+    }
   }
 
   async deletePricingOption(id: string): Promise<void> {
-    const pricingDoc = doc(this.firestore, `pricing/${id}`);
-    await deleteDoc(pricingDoc);
+    try {
+      const pricingDoc = doc(this.firestore, `pricing/${id}`);
+      await deleteDoc(pricingDoc);
+    } catch {
+      throw new Error('Failed to delete pricing option');
+    }
+  }
+
+  private getPricingCollection() {
+    return collection(this.firestore, 'pricing');
   }
 }

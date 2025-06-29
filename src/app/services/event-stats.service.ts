@@ -25,13 +25,9 @@ export interface IEventStatisticsWithId extends IEventStatistics {
 })
 export class EventStatsService {
   private firestore = inject(Firestore);
-  private eventStatisticsCollection = collection(
-    this.firestore,
-    'event-statistics',
-  );
 
   getEventStats(): Observable<IEventStatisticsWithId[]> {
-    return collectionData(this.eventStatisticsCollection, {
+    return collectionData(this.getEventStatisticsCollection(), {
       idField: 'id',
     }) as Observable<IEventStatisticsWithId[]>;
   }
@@ -40,7 +36,7 @@ export class EventStatsService {
     eventName: string,
   ): Observable<IEventStatisticsWithId[]> {
     const q = query(
-      this.eventStatisticsCollection,
+      this.getEventStatisticsCollection(),
       where('eventName', '==', eventName),
     );
     return collectionData(q, { idField: 'id' }) as Observable<
@@ -56,29 +52,48 @@ export class EventStatsService {
   }
 
   async addEventStats(eventStats: IEventStatistics): Promise<string> {
-    const eventStatsData = {
-      ...eventStats,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    const docRef = await addDoc(this.eventStatisticsCollection, eventStatsData);
-    return docRef.id;
+    try {
+      const eventStatsData = {
+        ...eventStats,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      const docRef = await addDoc(
+        this.getEventStatisticsCollection(),
+        eventStatsData,
+      );
+      return docRef.id;
+    } catch {
+      throw new Error('Failed to create event statistics');
+    }
   }
 
   async updateEventStats(
     id: string,
     eventStats: Partial<IEventStatistics>,
   ): Promise<void> {
-    const eventStatDoc = doc(this.firestore, `event-statistics/${id}`);
-    const updateData = {
-      ...eventStats,
-      updatedAt: new Date(),
-    };
-    await updateDoc(eventStatDoc, updateData);
+    try {
+      const eventStatDoc = doc(this.firestore, `event-statistics/${id}`);
+      const updateData = {
+        ...eventStats,
+        updatedAt: new Date(),
+      };
+      await updateDoc(eventStatDoc, updateData);
+    } catch {
+      throw new Error('Failed to update event statistics');
+    }
   }
 
   async deleteEventStats(id: string): Promise<void> {
-    const eventStatDoc = doc(this.firestore, `event-statistics/${id}`);
-    await deleteDoc(eventStatDoc);
+    try {
+      const eventStatDoc = doc(this.firestore, `event-statistics/${id}`);
+      await deleteDoc(eventStatDoc);
+    } catch {
+      throw new Error('Failed to delete event statistics');
+    }
+  }
+
+  private getEventStatisticsCollection() {
+    return collection(this.firestore, 'event-statistics');
   }
 }

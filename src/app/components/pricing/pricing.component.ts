@@ -13,10 +13,10 @@ import { SecondaryButtonComponent } from '../secondary-button/secondary-button.c
   styleUrl: './pricing.component.scss',
 })
 export class PricingComponent implements OnInit {
-  private firebasePricingService = inject(FirebasePricingService);
   pricingOptions: PricingDocument[] = [];
   loading = true;
   error: string | null = null;
+  private firebasePricingService = inject(FirebasePricingService);
 
   ngOnInit(): void {
     this.loadPricingOptions();

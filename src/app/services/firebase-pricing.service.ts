@@ -32,10 +32,6 @@ export interface PricingDocument extends PricingOption {
 export class FirebasePricingService {
   private firestore = inject(Firestore);
 
-  private get pricingCollection() {
-    return collection(this.firestore, 'pricing');
-  }
-
   createPricingOption(
     pricingData: Omit<PricingOption, 'id' | 'createdAt' | 'updatedAt'>,
   ): Observable<string | null> {
@@ -45,10 +41,9 @@ export class FirebasePricingService {
       updatedAt: new Date(),
     };
 
-    return from(addDoc(this.pricingCollection, pricingDocumentData)).pipe(
+    return from(addDoc(this.getPricingCollection(), pricingDocumentData)).pipe(
       map((docRef) => docRef.id),
-      catchError((error) => {
-        console.error('Error creating pricing option:', error);
+      catchError(() => {
         return of(null);
       }),
     );
@@ -76,15 +71,14 @@ export class FirebasePricingService {
         }
         return null;
       }),
-      catchError((error) => {
-        console.error('Error getting pricing option:', error);
+      catchError(() => {
         return of(null);
       }),
     );
   }
 
   getPricingOptions(): Observable<PricingDocument[]> {
-    return from(getDocs(this.pricingCollection)).pipe(
+    return from(getDocs(this.getPricingCollection())).pipe(
       map((querySnapshot) => {
         return querySnapshot.docs.map((doc) => {
           const data = doc.data() as Omit<PricingDocument, 'id'>;
@@ -102,8 +96,7 @@ export class FirebasePricingService {
           };
         });
       }),
-      catchError((error) => {
-        console.error('Error getting pricing options:', error);
+      catchError(() => {
         return of([]);
       }),
     );
@@ -121,8 +114,7 @@ export class FirebasePricingService {
 
     return from(updateDoc(pricingDoc, updateData)).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error updating pricing option:', error);
+      catchError(() => {
         return of(false);
       }),
     );
@@ -133,10 +125,13 @@ export class FirebasePricingService {
 
     return from(deleteDoc(pricingDoc)).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error deleting pricing option:', error);
+      catchError(() => {
         return of(false);
       }),
     );
+  }
+
+  private getPricingCollection() {
+    return collection(this.firestore, 'pricing');
   }
 }

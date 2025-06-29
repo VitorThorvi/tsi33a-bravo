@@ -27,13 +27,12 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
 })
 export class SignInComponent {
-  private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
-  private router = inject(Router);
-
   signInForm: FormGroup;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   constructor() {
     this.signInForm = this.fb.group({
@@ -59,14 +58,6 @@ export class SignInComponent {
     return this.authService.isLoading();
   }
 
-  private redirectBasedOnRole(): void {
-    if (this.authService.hasAdminPrivileges()) {
-      this.router.navigate(['/admin']);
-    } else {
-      this.router.navigate(['/signed']);
-    }
-  }
-
   onSubmit() {
     if (this.signInForm.valid && !this.isLoading) {
       this.errorMessage = null;
@@ -78,7 +69,8 @@ export class SignInComponent {
         next: (result) => {
           if (result.success) {
             this.successMessage = result.message;
-            // Navigate based on user role
+            // Navigate based on
+            // user role
             setTimeout(() => {
               this.redirectBasedOnRole();
             }, 1000);
@@ -116,6 +108,14 @@ export class SignInComponent {
           console.error('Google sign in error:', error);
         },
       });
+    }
+  }
+
+  private redirectBasedOnRole(): void {
+    if (this.authService.hasAdminPrivileges()) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/signed']);
     }
   }
 }

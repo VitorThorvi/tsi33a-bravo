@@ -320,6 +320,12 @@ body {
   gap: var(--spacing-xxl);
 }
 
+// Avatar size utility
+.avatar-size {
+  width: var(--spacing-xxl);
+  height: var(--spacing-xxl);
+}
+
 // ============================================================================
 // FORM PLACEHOLDER STYLING
 // ============================================================================

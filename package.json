@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,7 +13,6 @@
     "deploy:hosting": "ng build --configuration production && firebase deploy --only hosting",
     "deploy:firestore": "firebase deploy --only firestore",
     "deploy:all": "ng build --configuration production && firebase deploy"
-
   },
   "private": true,
   "dependencies": {

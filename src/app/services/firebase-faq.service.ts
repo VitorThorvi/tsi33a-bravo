@@ -31,10 +31,6 @@ export interface FaqDocument extends FaqItem {
 export class FirebaseFaqService {
   private firestore = inject(Firestore);
 
-  private get faqCollection() {
-    return collection(this.firestore, 'faq');
-  }
-
   createFaqItem(
     faqData: Omit<FaqItem, 'id' | 'createdAt' | 'updatedAt'>,
   ): Observable<string | null> {
@@ -44,10 +40,9 @@ export class FirebaseFaqService {
       updatedAt: new Date(),
     };
 
-    return from(addDoc(this.faqCollection, faqDocumentData)).pipe(
+    return from(addDoc(this.getFaqCollection(), faqDocumentData)).pipe(
       map((docRef) => docRef.id),
-      catchError((error) => {
-        console.error('Error creating FAQ item:', error);
+      catchError(() => {
         return of(null);
       }),
     );
@@ -75,15 +70,14 @@ export class FirebaseFaqService {
         }
         return null;
       }),
-      catchError((error) => {
-        console.error('Error getting FAQ item:', error);
+      catchError(() => {
         return of(null);
       }),
     );
   }
 
   getFaqItems(): Observable<FaqDocument[]> {
-    return from(getDocs(this.faqCollection)).pipe(
+    return from(getDocs(this.getFaqCollection())).pipe(
       map((querySnapshot) => {
         return querySnapshot.docs.map((doc) => {
           const data = doc.data() as Omit<FaqDocument, 'id'>;
@@ -101,8 +95,7 @@ export class FirebaseFaqService {
           };
         });
       }),
-      catchError((error) => {
-        console.error('Error getting FAQ items:', error);
+      catchError(() => {
         return of([]);
       }),
     );
@@ -120,8 +113,7 @@ export class FirebaseFaqService {
 
     return from(updateDoc(faqDoc, updateData)).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error updating FAQ item:', error);
+      catchError(() => {
         return of(false);
       }),
     );
@@ -132,10 +124,13 @@ export class FirebaseFaqService {
 
     return from(deleteDoc(faqDoc)).pipe(
       map(() => true),
-      catchError((error) => {
-        console.error('Error deleting FAQ item:', error);
+      catchError(() => {
         return of(false);
       }),
     );
+  }
+
+  private getFaqCollection() {
+    return collection(this.firestore, 'faq');
   }
 }

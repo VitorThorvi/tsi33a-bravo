@@ -2,5 +2,19 @@
 
 <div>
   <app-event-stats></app-event-stats>
-  <app-tab-nav></app-tab-nav>
 </div>
+
+<!-- Manage Events Button - Only visible to admin/owner users -->
+@if (hasAdminPrivileges) {
+  <div class='container py-3'>
+    <div class='row justify-content-center'>
+      <div class='col-12'>
+        <app-primary-button
+          [buttonText]="'Gerenciar Eventos'"
+          [fullWidth]='true'
+          (buttonClick)='navigateToManageEvents()'>
+        </app-primary-button>
+      </div>
+    </div>
+  </div>
+}

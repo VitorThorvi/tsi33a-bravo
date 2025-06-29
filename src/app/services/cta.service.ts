@@ -27,20 +27,19 @@ export interface CtaContent {
 })
 export class CtaService {
   private firestore = inject(Firestore);
-  private ctaCollection = collection(this.firestore, 'cta');
 
   getCtaContent(): Observable<CtaContent> {
     // Get the first CTA content item (assuming there's only one active CTA)
-    const q = query(this.ctaCollection, limit(1));
+    const q = query(this.getCtaCollection(), limit(1));
     return (
       collectionData(q, { idField: 'id' }) as Observable<CtaContent[]>
     ).pipe(map((items: CtaContent[]) => items[0]));
   }
 
   getCtaContents(): Observable<CtaContent[]> {
-    return collectionData(this.ctaCollection, { idField: 'id' }) as Observable<
-      CtaContent[]
-    >;
+    return collectionData(this.getCtaCollection(), {
+      idField: 'id',
+    }) as Observable<CtaContent[]>;
   }
 
   getCtaContentById(id: string): Observable<CtaContent> {
@@ -51,29 +50,45 @@ export class CtaService {
   async addCtaContent(
     ctaContent: Omit<CtaContent, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<string> {
-    const ctaData = {
-      ...ctaContent,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    const docRef = await addDoc(this.ctaCollection, ctaData);
-    return docRef.id;
+    try {
+      const ctaData = {
+        ...ctaContent,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      const docRef = await addDoc(this.getCtaCollection(), ctaData);
+      return docRef.id;
+    } catch {
+      throw new Error('Failed to create CTA content');
+    }
   }
 
   async updateCtaContent(
     id: string,
     ctaContent: Partial<Omit<CtaContent, 'id' | 'createdAt' | 'updatedAt'>>,
   ): Promise<void> {
-    const ctaDoc = doc(this.firestore, `cta/${id}`);
-    const updateData = {
-      ...ctaContent,
-      updatedAt: new Date(),
-    };
-    await updateDoc(ctaDoc, updateData);
+    try {
+      const ctaDoc = doc(this.firestore, `cta/${id}`);
+      const updateData = {
+        ...ctaContent,
+        updatedAt: new Date(),
+      };
+      await updateDoc(ctaDoc, updateData);
+    } catch {
+      throw new Error('Failed to update CTA content');
+    }
   }
 
   async deleteCtaContent(id: string): Promise<void> {
-    const ctaDoc = doc(this.firestore, `cta/${id}`);
-    await deleteDoc(ctaDoc);
+    try {
+      const ctaDoc = doc(this.firestore, `cta/${id}`);
+      await deleteDoc(ctaDoc);
+    } catch {
+      throw new Error('Failed to delete CTA content');
+    }
+  }
+
+  private getCtaCollection() {
+    return collection(this.firestore, 'cta');
   }
 }

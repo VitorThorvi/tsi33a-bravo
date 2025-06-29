@@ -1,16 +1,16 @@
 <html>
 <head>
-  <link rel='preconnect' href='https://fonts.gstatic.com/' crossorigin=''/>
+  <link crossorigin='' href='https://fonts.gstatic.com/' rel='preconnect'/>
   <link
-    rel='stylesheet'
     as='style'
-    onload="this.rel='stylesheet'"
     href='https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800'
+    onload="this.rel='stylesheet'"
+    rel='stylesheet'
   />
   <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
 
   <title>Stitch Design</title>
-  <link rel='icon' type='image/x-icon' href='data:image/x-icon;base64,'/>
+  <link href='data:image/x-icon;base64,' rel='icon' type='image/x-icon'/>
 </head>
 <body class='bravo-bg-primary-dark bravo-text-primary'>
 <div class='position-relative d-flex min-vh-100 flex-column justify-content-between overflow-hidden'
@@ -48,30 +48,30 @@
           <!-- Email Input using Angular Material -->
           <div class='p-md py-2 py-sm-3'>
             <mat-form-field appearance='fill' class='w-100'>
-              <input matInput
+              <input class='bravo-text-primary'
+                     matInput
                      placeholder='Email'
-                     type='email'
-                     class='bravo-text-primary'
-                     style='background-color: var(--bravo-border-accent);'>
+                     style='background-color: var(--bravo-border-accent);'
+                     type='email'>
             </mat-form-field>
           </div>
 
           <!-- Password Input using Angular Material -->
           <div class='p-md py-2 py-sm-3'>
             <mat-form-field appearance='fill' class='w-100'>
-              <input matInput
+              <input class='bravo-text-primary'
+                     matInput
                      placeholder='Password'
-                     type='password'
-                     class='bravo-text-primary'
-                     style='background-color: var(--bravo-border-accent);'>
+                     style='background-color: var(--bravo-border-accent);'
+                     type='password'>
             </mat-form-field>
           </div>
 
           <!-- Login Button using Angular Material -->
           <div class='p-md py-2 py-sm-3'>
-            <button mat-raised-button
+            <button class='w-100 rounded-pill fw-bold bravo-bg-primary-accent bravo-text-on-accent'
                     color='primary'
-                    class='w-100 rounded-pill fw-bold bravo-bg-primary-accent bravo-text-on-accent'
+                    mat-raised-button
                     style='height: 3rem; font-size: 1rem; letter-spacing: 0.015em;'>
               <span>Log In</span>
             </button>

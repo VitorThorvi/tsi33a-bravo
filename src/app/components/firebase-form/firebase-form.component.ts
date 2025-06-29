@@ -53,9 +53,6 @@ export interface FirebaseFormSubmissionResult {
   styleUrl: './firebase-form.component.scss',
 })
 export class FirebaseFormComponent implements OnInit {
-  private firestore = inject(Firestore);
-  private formBuilder = inject(FormBuilder);
-
   @Input() collectionName = '';
   @Input() isUpdate = false;
   @Input() documentId = '';
@@ -63,35 +60,16 @@ export class FirebaseFormComponent implements OnInit {
   @Input() formFields: FirebaseFormField[] = [];
   @Input() submitButtonText = 'Submit';
   @Input() isLoading = false;
-
   @Output() formSubmitted = new EventEmitter<FirebaseFormSubmissionResult>();
   @Output() formDataChanged = new EventEmitter<Record<string, unknown>>();
-
-  firebaseForm: FormGroup = this.formBuilder.group({});
   submissionError: string | null = null;
   submissionSuccess: string | null = null;
+  private firestore = inject(Firestore);
+  private formBuilder = inject(FormBuilder);
+  firebaseForm: FormGroup = this.formBuilder.group({});
 
   ngOnInit(): void {
     this.initializeForm();
-  }
-
-  private initializeForm(): void {
-    const formControls: Record<string, unknown> = {};
-
-    this.formFields.forEach((field) => {
-      const validators = field.required ? [Validators.required] : [];
-      if (field.type === 'email') {
-        validators.push(Validators.email);
-      }
-      formControls[field.fieldName] = ['', validators];
-    });
-
-    this.firebaseForm = this.formBuilder.group(formControls);
-
-    // Emit form data changes
-    this.firebaseForm.valueChanges.subscribe((value) => {
-      this.formDataChanged.emit(value);
-    });
   }
 
   onSubmit(): void {
@@ -115,6 +93,29 @@ export class FirebaseFormComponent implements OnInit {
     } else {
       this.createDocument(dataWithTimestamp);
     }
+  }
+
+  getFormControl(fieldName: string): FormControl {
+    return this.firebaseForm.get(fieldName) as FormControl;
+  }
+
+  private initializeForm(): void {
+    const formControls: Record<string, unknown> = {};
+
+    this.formFields.forEach((field) => {
+      const validators = field.required ? [Validators.required] : [];
+      if (field.type === 'email') {
+        validators.push(Validators.email);
+      }
+      formControls[field.fieldName] = ['', validators];
+    });
+
+    this.firebaseForm = this.formBuilder.group(formControls);
+
+    // Emit form data changes
+    this.firebaseForm.valueChanges.subscribe((value) => {
+      this.formDataChanged.emit(value);
+    });
   }
 
   private createDocument(data: Record<string, unknown>): void {
@@ -163,9 +164,5 @@ export class FirebaseFormComponent implements OnInit {
         });
       },
     });
-  }
-
-  getFormControl(fieldName: string): FormControl {
-    return this.firebaseForm.get(fieldName) as FormControl;
   }
 }
