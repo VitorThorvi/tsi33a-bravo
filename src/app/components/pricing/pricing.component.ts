@@ -1,6 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PricingOption, PricingService } from '../../services/pricing.service';
+import {
+  FirebasePricingService,
+  PricingDocument,
+} from '../../services/firebase-pricing.service';
 import { SecondaryButtonComponent } from '../secondary-button/secondary-button.component';
 
 @Component({
@@ -10,17 +13,17 @@ import { SecondaryButtonComponent } from '../secondary-button/secondary-button.c
   styleUrl: './pricing.component.scss',
 })
 export class PricingComponent implements OnInit {
-  private pricingService = inject(PricingService);
-  pricingOptions: PricingOption[] = [];
+  pricingOptions: PricingDocument[] = [];
   loading = true;
   error: string | null = null;
+  private firebasePricingService = inject(FirebasePricingService);
 
   ngOnInit(): void {
     this.loadPricingOptions();
   }
 
   private loadPricingOptions(): void {
-    this.pricingService.getPricingOptions().subscribe({
+    this.firebasePricingService.getPricingOptions().subscribe({
       next: (options) => {
         this.pricingOptions = options;
         this.loading = false;

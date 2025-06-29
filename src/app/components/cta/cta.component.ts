@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { PrimaryButtonComponent } from '../primary-button/primary-button.component';
 
 @Component({
@@ -13,4 +14,12 @@ export class CtaComponent {
   @Input() h2Text = '';
   @Input() pText = '';
   @Input() buttonText = '';
+  @Input() routeTo = '';
+  private router = inject(Router);
+
+  onButtonClick(): void {
+    if (this.routeTo) {
+      this.router.navigate([this.routeTo]);
+    }
+  }
 }

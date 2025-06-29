@@ -9,7 +9,6 @@
         <button
           type='button'
           class='btn bravo-bg-secondary-dark bravo-text-primary fw-bold rounded-pill px-4 mt-2'
-          style='height: 40px;'
           (click)='resetForm()'>
           Enviar Outra Pergunta
         </button>
@@ -19,7 +18,7 @@
 
   @if (error) {
     <div class='container-fluid px-4 py-3'>
-      <div class='alert alert-danger rounded-3 p-4 mb-3' style='background-color: #dc3545; color: white; border: none;'>
+      <div class='alert alert-danger rounded-3 p-4 mb-3'>
         <p class='mb-0'>{{ error }}</p>
       </div>
     </div>
@@ -32,10 +31,9 @@
           <input
             type='email'
             formControlName='email'
-            class='form-control bravo-bg-secondary-dark bravo-text-primary rounded-3 p-4'
+            class='form-control bravo-bg-secondary-dark bravo-text-primary rounded-3 p-4 border-0'
             [class.is-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
-            placeholder='Seu E-mail'
-            style='height: 56px; border: none; background-color: var(--bravo-secondary-dark); color: var(--bravo-text-primary);'>
+            placeholder='Seu E-mail'>
           @if (contactForm.get('email')?.invalid && contactForm.get('email')?.touched) {
             <div class='invalid-feedback d-block bravo-text-secondary-medium small mt-1'>
               @if (contactForm.get('email')?.errors?.['required']) {
@@ -53,11 +51,10 @@
         <div class='mb-3'>
           <textarea
             formControlName='question'
-            class='form-control bravo-bg-secondary-dark bravo-text-primary rounded-3 p-4'
+            class='form-control bravo-bg-secondary-dark bravo-text-primary rounded-3 p-4 border-0'
             [class.is-invalid]="contactForm.get('question')?.invalid && contactForm.get('question')?.touched"
             placeholder='Sua Pergunta (mínimo 10 caracteres)'
-            rows='4'
-            style='min-height: 144px; border: none; background-color: var(--bravo-secondary-dark); color: var(--bravo-text-primary);'></textarea>
+            rows='4'></textarea>
           @if (contactForm.get('question')?.invalid && contactForm.get('question')?.touched) {
             <div class='invalid-feedback d-block bravo-text-secondary-medium small mt-1'>
               @if (contactForm.get('question')?.errors?.['required']) {
@@ -75,8 +72,7 @@
         <button
           type='submit'
           class='btn bravo-bg-primary-accent bravo-text-on-accent fw-bold rounded-pill px-4'
-          [disabled]='contactForm.invalid || isSubmitting'
-          style='height: 40px; min-width: 84px;'>
+          [disabled]='contactForm.invalid || isSubmitting'>
           @if (isSubmitting) {
             <span class='spinner-border spinner-border-sm me-2' role='status' aria-hidden='true'></span>
             Enviando...

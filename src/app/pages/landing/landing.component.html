@@ -1,5 +1,23 @@
-<div class='d-flex flex-column align-items-center'>
-  <app-hero></app-hero>
-  <app-testimonials></app-testimonials>
-  <app-footer></app-footer>
+<div class='container-fluid p-0 '>
+
+  <!-- Logo Header for Landing Page -->
+  <div class='row '>
+    <div class='col-12 p-0'>
+      <div class='text-center mt-1 py-1'>
+        <img alt='Bravo Logo' class='img-fluid' src='/logo.svg'>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='d-flex flex-column align-items-center col-12'>
+      <app-hero [buttonText]='buttonText'
+                [eventCTA]='eventCTA'
+                [eventDescription]='eventDescription'
+                [eventName]='eventName'
+                class='w-100'></app-hero>
+      <app-testimonials></app-testimonials>
+      <app-footer></app-footer>
+    </div>
+  </div>
 </div>

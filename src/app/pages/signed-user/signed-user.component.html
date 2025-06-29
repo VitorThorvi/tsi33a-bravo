@@ -1,9 +1,8 @@
-<div>
-  <!--  header  -->
+<div class='col-12 d-flex flex-column justify-content-center'>
   <div class='header-container text-center'>
-    @if (!loading && !error && ctaContent) {
+    @if (!loading && !error && activeEvent) {
       <app-cta
-        [eventName]='ctaContent.eventName'
+        [eventName]='activeEvent.eventName'
         [h1Text]="''"
         [pText]="''"
         [h2Text]="''"
@@ -16,14 +15,25 @@
   <div class='video-container'>
     <div class='container-fluid px-4 py-3'>
       <div class='ratio ratio-16x9'>
-        <iframe
-          src='https://www.youtube.com/embed/dQw4w9WgXcQ'
-          title='Player de vídeo do YouTube'
-          frameborder='0'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-          referrerpolicy='strict-origin-when-cross-origin'
-          allowfullscreen>
-        </iframe>
+        @if (!loading && !error && activeEvent && activeEvent.eventVideoUrl) {
+          <iframe
+             [src]='getSafeVideoUrl(activeEvent.eventVideoUrl)'
+            title='Player de vídeo do YouTube'
+            frameborder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            referrerpolicy='strict-origin-when-cross-origin'
+            allowfullscreen>
+          </iframe>
+        } @else {
+          <iframe
+            src='https://www.youtube.com/embed/dQw4w9WgXcQ'
+            title='Player de vídeo do YouTube'
+            frameborder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            referrerpolicy='strict-origin-when-cross-origin'
+            allowfullscreen>
+          </iframe>
+        }
       </div>
     </div>
   </div>
@@ -41,11 +51,11 @@
     </div>
   }
 
-  @if (!loading && !error && ctaContent) {
+  @if (!loading && !error && activeEvent) {
     <app-cta
       eventName=''
-      [h1Text]='ctaContent.h1Text'
-      [pText]='ctaContent.pText'
+      [h1Text]='activeEvent.eventCTA'
+      [pText]='activeEvent.eventDescription'
       [h2Text]="''"
       [buttonText]="''">
     </app-cta>

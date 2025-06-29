@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FaqComponent } from '../../components/faq/faq.component';
 import { ContactUsComponent } from '../../components/contact-us/contact-us.component';
 import { PricingComponent } from '../../components/pricing/pricing.component';
 import { TabNavComponent } from '../../components/tab-nav/tab-nav.component';
 import { CtaComponent } from '../../components/cta/cta.component';
-import { CtaContent, CtaService } from '../../services/cta.service';
+import { EventDocument, EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-signed-user',
@@ -21,25 +22,30 @@ import { CtaContent, CtaService } from '../../services/cta.service';
   styleUrl: './signed-user.component.scss',
 })
 export class SignedUserComponent implements OnInit {
-  private ctaService = inject(CtaService);
-  ctaContent: CtaContent | null = null;
+  activeEvent: EventDocument | null = null;
   loading = true;
   error: string | null = null;
+  private eventService = inject(EventService);
+  private sanitizer = inject(DomSanitizer);
 
   ngOnInit(): void {
-    this.loadCtaContent();
+    this.loadActiveEvent();
   }
 
-  private loadCtaContent(): void {
-    this.ctaService.getCtaContent().subscribe({
-      next: (content) => {
-        this.ctaContent = content;
+  getSafeVideoUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  private loadActiveEvent(): void {
+    this.eventService.getActiveEvent().subscribe({
+      next: (event) => {
+        this.activeEvent = event;
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Falha ao carregar conteúdo CTA';
+        this.error = 'Falha ao carregar dados do evento';
         this.loading = false;
-        console.error('Error loading CTA content:', err);
+        console.error('Error loading active event:', err);
       },
     });
   }

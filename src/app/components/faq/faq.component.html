@@ -20,8 +20,8 @@
   @if (!loading && !error && faqItems.length > 0) {
     <div class='px-4'>
       @for (item of faqItems; track item.id) {
-        <details class='d-flex flex-column border-top py-2' style='border-color: var(--bravo-border-accent);'>
-          <summary class='d-flex align-items-center justify-content-between gap-3 py-2' style='cursor: pointer;'>
+        <details class='d-flex flex-column border-top bravo-border-accent py-2'>
+          <summary class='d-flex align-items-center justify-content-between gap-3 py-2'>
             <p class='bravo-text-primary small fw-medium mb-0'>{{ item.question }}</p>
             <div class='bravo-text-primary'>
               <svg xmlns='http://www.w3.org/2000/svg'

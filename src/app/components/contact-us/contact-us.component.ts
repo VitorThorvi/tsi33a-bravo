@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  ContactService,
-  ContactSubmission,
-} from '../../services/contact.service';
+  ContactUsQuestionSubmission,
+  FirebaseContactUsQuestionService,
+} from '../../services/firebase-contact.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -18,13 +18,14 @@ import {
   styleUrl: './contact-us.component.scss',
 })
 export class ContactUsComponent {
-  private fb = inject(FormBuilder);
-  private contactService = inject(ContactService);
-
   contactForm: FormGroup;
   isSubmitting = false;
   isSubmitted = false;
   error: string | null = null;
+  private fb = inject(FormBuilder);
+  private firebaseContactUsQuestionService = inject(
+    FirebaseContactUsQuestionService,
+  );
 
   constructor() {
     this.contactForm = this.fb.group({
@@ -38,24 +39,26 @@ export class ContactUsComponent {
       this.isSubmitting = true;
       this.error = null;
 
-      const submission: ContactSubmission = {
+      const submission: ContactUsQuestionSubmission = {
         email: this.contactForm.value.email,
         question: this.contactForm.value.question,
       };
 
-      this.contactService.submitQuestion(submission).subscribe({
-        next: (response) => {
-          this.isSubmitting = false;
-          this.isSubmitted = true;
-          this.contactForm.reset();
-          console.log('Question submitted successfully:', response);
-        },
-        error: (err) => {
-          this.isSubmitting = false;
-          this.error = 'Falha ao enviar sua pergunta. Tente novamente.';
-          console.error('Error submitting question:', err);
-        },
-      });
+      this.firebaseContactUsQuestionService
+        .submitContactUsQuestion(submission)
+        .subscribe({
+          next: (response) => {
+            this.isSubmitting = false;
+            this.isSubmitted = true;
+            this.contactForm.reset();
+            console.log('Question submitted successfully:', response);
+          },
+          error: (err) => {
+            this.isSubmitting = false;
+            this.error = 'Falha ao enviar sua pergunta. Tente novamente.';
+            console.error('Error submitting question:', err);
+          },
+        });
     }
   }
 
