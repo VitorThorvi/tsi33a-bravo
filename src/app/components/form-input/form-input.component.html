@@ -1,0 +1,38 @@
+<div class='form-group'>
+  @if (label) {
+    <label [for]='inputId' class='form-label'>
+      {{ label }}
+      @if (control.hasValidator(Validators.required)) {
+        <span class='text-danger'>*</span>
+      }
+    </label>
+  }
+  <input
+    [formControl]='control'
+    [id]='inputId'
+    [ngClass]="{ 'is-invalid': control.touched && control.invalid }"
+    [placeholder]='placeholder'
+    [type]='type'
+    class='form-control'
+  />
+  @if (control.touched && control.invalid) {
+    <div class='invalid-feedback d-block'>
+      @if (control.hasError('required')) {
+        <div>This field is required.</div>
+      }
+      @if (control.hasError('email')) {
+        <div>Please enter a valid email address.</div>
+      }
+      @if (control.hasError('minlength')) {
+        <div>
+          Must be at least {{ control.errors?.['minlength'].requiredLength }} characters.
+        </div>
+      }
+      @if (control.hasError('maxlength')) {
+        <div>
+          Cannot be more than {{ control.errors?.['maxlength'].requiredLength }} characters.
+        </div>
+      }
+    </div>
+  }
+</div>

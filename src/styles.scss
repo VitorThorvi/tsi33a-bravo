@@ -1,0 +1,357 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+// ============================================================================
+// BRAND COLOR DEFINITIONS
+// ============================================================================
+
+// Brand color variables
+$bravo-primary-dark: #221d11; // Main background color
+$bravo-primary-accent: #f3c348; // Subscribe button background (golden yellow)
+$bravo-secondary-dark: #342c19; // Footer/navigation background (darker brown)
+$bravo-secondary-medium: #caba91; // Footer links and inactive navigation items
+$bravo-border-accent: #483e23; // Border color for footer separator
+$bravo-text-primary: #ffffff; // White text for headings and main content
+$bravo-text-on-accent: #221d11; // Dark text on accent background
+
+// ============================================================================
+// MATERIAL 3 THEME CONFIGURATION
+// ============================================================================
+
+// Material 3 theme using correct palette names
+$bravo-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$yellow-palette, // Closest to your golden accent
+    tertiary: mat.$orange-palette, // Alternative brown-ish color
+    use-system-variables: true,
+  ),
+  typography: (
+    brand-family: 'Roboto',
+    plain-family: 'Roboto',
+    bold-weight: 500,
+    medium-weight: 400,
+    regular-weight: 400,
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+// ============================================================================
+// GLOBAL STYLES
+// ============================================================================
+
+html {
+  // Apply Material 3 theme
+  @include mat.all-component-themes($bravo-theme);
+
+  // Base font size for consistent rem calculations
+  font-size: 16px;
+  line-height: 1.5;
+
+  // Text rendering optimizations
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ============================================================================
+// CSS RESET (TARGETED)
+// ============================================================================
+
+// Box model reset for all elements
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// Targeted margin and padding reset (preserves Material component spacing)
+body,
+h1, h2, h3, h4, h5, h6,
+p,
+ul, ol, li,
+figure,
+blockquote,
+dl, dd {
+  margin: 0;
+  padding: 0;
+}
+
+// Body configuration - Override with brand colors
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  line-height: inherit;
+  color: $bravo-text-primary !important;
+  background-color: $bravo-primary-dark !important;
+  min-height: 100vh;
+}
+
+// ============================================================================
+// CUSTOM CSS PROPERTIES FOR BRAND COLORS
+// ============================================================================
+
+:root {
+  // Define custom CSS properties for brand colors
+  --bravo-primary-dark: #{$bravo-primary-dark};
+  --bravo-primary-accent: #{$bravo-primary-accent};
+  --bravo-secondary-dark: #{$bravo-secondary-dark};
+  --bravo-secondary-medium: #{$bravo-secondary-medium};
+  --bravo-border-accent: #{$bravo-border-accent};
+  --bravo-text-primary: #{$bravo-text-primary};
+  --bravo-text-on-accent: #{$bravo-text-on-accent};
+
+  // Override Material system colors with brand colors
+  --mat-sys-primary: #{$bravo-primary-accent};
+  --mat-sys-on-primary: #{$bravo-text-on-accent};
+  --mat-sys-surface: #{$bravo-primary-dark};
+  --mat-sys-on-surface: #{$bravo-text-primary};
+  --mat-sys-surface-variant: #{$bravo-secondary-dark};
+  --mat-sys-on-surface-variant: #{$bravo-secondary-medium};
+}
+
+// ============================================================================
+// UTILITY CLASSES
+// ============================================================================
+
+// Brand color utility classes using CSS custom properties
+.bravo-bg-primary-dark {
+  background-color: var(--bravo-primary-dark) !important;
+}
+
+.bravo-bg-primary-accent {
+  background-color: var(--bravo-primary-accent) !important;
+}
+
+.bravo-bg-secondary-dark {
+  background-color: var(--bravo-secondary-dark) !important;
+}
+
+.bravo-bg-secondary-medium {
+  background-color: var(--bravo-secondary-medium) !important;
+}
+
+.bravo-text-primary {
+  color: var(--bravo-text-primary) !important;
+}
+
+.bravo-text-on-accent {
+  color: var(--bravo-text-on-accent) !important;
+}
+
+.bravo-text-secondary-medium {
+  color: var(--bravo-secondary-medium) !important;
+}
+
+.bravo-border-accent {
+  border-color: var(--bravo-border-accent) !important;
+}
+
+// ============================================================================
+// ACCESSIBILITY IMPROVEMENTS
+// ============================================================================
+
+// Focus styles for keyboard navigation using brand colors
+:focus-visible {
+  outline: 2px solid var(--bravo-primary-accent) !important;
+  outline-offset: 2px;
+}
+
+// Remove focus outline for mouse users
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// Respect user's motion preferences
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Ensure hidden elements stay hidden
+[hidden] {
+  display: none !important;
+}
+
+// Screen reader only utility class
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ============================================================================
+// MATERIAL COMPONENT OVERRIDES
+// ============================================================================
+
+// Override Material components to use brand colors
+.mat-mdc-button {
+  &.mat-primary {
+    --mdc-filled-button-container-color: var(--bravo-primary-accent);
+    --mdc-filled-button-label-text-color: var(--bravo-text-on-accent);
+  }
+
+  &.bravo-secondary-button {
+    --mdc-outlined-button-outline-color: var(--bravo-border-accent);
+    --mdc-outlined-button-label-text-color: var(--bravo-text-primary);
+    background-color: transparent;
+  }
+}
+
+.mat-mdc-card {
+  --mdc-elevated-card-container-color: var(--bravo-secondary-dark);
+  color: var(--bravo-text-primary);
+}
+
+// Override Material toolbar
+.mat-toolbar {
+  background-color: var(--bravo-secondary-dark) !important;
+  color: var(--bravo-text-primary) !important;
+}
+
+// Override Material form fields
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-color: var(--bravo-secondary-dark);
+  --mdc-filled-text-field-label-text-color: var(--bravo-secondary-medium);
+  --mdc-filled-text-field-input-text-color: var(--bravo-text-primary);
+}
+
+// ============================================================================
+// RESPONSIVE DESIGN TOKENS
+// ============================================================================
+
+// Responsive spacing
+:root {
+  --spacing-xs: 0.25rem; // 4px
+  --spacing-sm: 0.5rem; // 8px
+  --spacing-md: 1rem; // 16px
+  --spacing-lg: 1.5rem; // 24px
+  --spacing-xl: 2rem; // 32px
+  --spacing-xxl: 3rem; // 48px
+}
+
+// Spacing utility classes
+.p-xs {
+  padding: var(--spacing-xs);
+}
+
+.p-sm {
+  padding: var(--spacing-sm);
+}
+
+.p-md {
+  padding: var(--spacing-md);
+}
+
+.p-lg {
+  padding: var(--spacing-lg);
+}
+
+.p-xl {
+  padding: var(--spacing-xl);
+}
+
+.p-xxl {
+  padding: var(--spacing-xxl);
+}
+
+.m-xs {
+  margin: var(--spacing-xs);
+}
+
+.m-sm {
+  margin: var(--spacing-sm);
+}
+
+.m-md {
+  margin: var(--spacing-md);
+}
+
+.m-lg {
+  margin: var(--spacing-lg);
+}
+
+.m-xl {
+  margin: var(--spacing-xl);
+}
+
+.m-xxl {
+  margin: var(--spacing-xxl);
+}
+
+// Gap utilities
+.gap-xs {
+  gap: var(--spacing-xs);
+}
+
+.gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.gap-md {
+  gap: var(--spacing-md);
+}
+
+.gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.gap-xl {
+  gap: var(--spacing-xl);
+}
+
+.gap-xxl {
+  gap: var(--spacing-xxl);
+}
+
+// Avatar size utility
+.avatar-size {
+  width: var(--spacing-xxl);
+  height: var(--spacing-xxl);
+}
+
+// ============================================================================
+// FORM PLACEHOLDER STYLING
+// ============================================================================
+
+// Improve placeholder contrast using brand colors
+::placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}
+
+::-webkit-input-placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}
+
+::-moz-placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}
+
+:-moz-placeholder {
+  color: var(--bravo-secondary-medium) !important;
+  opacity: 1;
+}

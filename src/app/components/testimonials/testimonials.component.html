@@ -1,0 +1,22 @@
+<div>
+  <h2 class='bravo-text-primary fs-4 fw-bold p-3 pb-2 pt-4'>{{ title }}</h2>
+  <div class='p-3'>
+    <div class='rounded-3 d-flex flex-column justify-content-end position-relative overflow-hidden ratio ratio-16x9'>
+      <div class='position-absolute top-0 start-0 w-100 h-100'>
+        <img
+          [alt]="'Testimonial by ' + testimonial.author"
+          [src]='testimonial.backgroundImage'
+          class='w-100 h-100 object-fit-cover'>
+      </div>
+      <div class='position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50'></div>
+      <div class='position-relative p-4'>
+        <div class='d-flex w-100 align-items-end justify-content-between'>
+          <div class='flex-grow-1'>
+            <p class='bravo-text-primary fs-5 fw-bold lh-sm mb-2'>{{ testimonial.quote }}</p>
+            <p class='bravo-text-primary fs-6 fw-medium mb-0'>{{ testimonial.author }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

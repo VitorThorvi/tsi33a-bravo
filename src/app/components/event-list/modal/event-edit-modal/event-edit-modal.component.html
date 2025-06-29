@@ -1,0 +1,123 @@
+<div class='bravo-bg-primary-dark bravo-text-primary p-4'>
+  <h2 class='bravo-text-primary h4 fw-bold mb-4'>Editar Evento</h2>
+
+  @if (error) {
+    <div class='alert alert-danger rounded-3 p-3 mb-3'>
+      <p class='mb-0'>{{ error }}</p>
+    </div>
+  }
+
+  @if (successMessage) {
+    <div
+      class='alert bravo-bg-primary-accent bravo-text-on-accent rounded-3 p-3 mb-3'
+    >
+      <p class='mb-0'>{{ successMessage }}</p>
+    </div>
+  }
+
+  <form
+    [formGroup]='eventForm'
+    (ngSubmit)='onSave()'
+    class='d-flex flex-column gap-3'
+  >
+    <app-form-input
+      [control]='eventNameControl'
+      label='Nome do Evento'
+      placeholder='Digite o nome do evento'
+      type='text'
+    >
+    </app-form-input>
+
+    <app-form-input
+      [control]='eventDescriptionControl'
+      label='Descrição do Evento'
+      placeholder='Digite a descrição do evento'
+      type='text'
+    >
+    </app-form-input>
+
+    <app-form-input
+      [control]='eventCTAControl'
+      label='Call to Action'
+      placeholder='Digite o texto do CTA'
+      type='text'
+    >
+    </app-form-input>
+
+    <app-form-input
+      [control]='eventVideoUrlControl'
+      label='URL do Vídeo'
+      placeholder='Digite a URL do vídeo'
+      type='url'
+    >
+    </app-form-input>
+
+    <app-form-input
+      [control]='eventImageUrlControl'
+      label='URL da Imagem'
+      placeholder='Digite a URL da imagem'
+      type='url'
+    >
+    </app-form-input>
+
+    <div class='form-group'>
+      <fieldset>
+        <legend class='form-label bravo-text-primary'>
+          Status do Evento
+        </legend>
+        <div class='d-flex gap-3'>
+          <div class='form-check'>
+            <input
+              class='form-check-input'
+              type='radio'
+              [formControlName]="'isActive'"
+              [value]='true'
+              id='active'
+            />
+            <label class='form-check-label bravo-text-primary' for='active'>
+              Ativo
+            </label>
+          </div>
+          <div class='form-check'>
+            <input
+              class='form-check-input'
+              type='radio'
+              [formControlName]="'isActive'"
+              [value]='false'
+              id='inactive'
+            />
+            <label
+              class='form-check-label bravo-text-primary'
+              for='inactive'
+            >
+              Inativo
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class='d-flex gap-3 justify-content-end mt-4'>
+      <app-primary-button
+        [buttonText]="'Excluir Evento'"
+        (buttonClick)='onDelete()'
+        [isDisabled]='isLoading'
+      >
+      </app-primary-button>
+
+      <app-primary-button
+        [buttonText]="'Cancelar'"
+        (buttonClick)='onCancel()'
+        [isDisabled]='isLoading'
+      >
+      </app-primary-button>
+
+      <app-primary-button
+        [buttonText]="isLoading ? 'Salvando...' : 'Salvar'"
+        [isDisabled]='eventForm.invalid || isLoading'
+        type='submit'
+      >
+      </app-primary-button>
+    </div>
+  </form>
+</div>

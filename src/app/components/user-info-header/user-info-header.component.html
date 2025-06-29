@@ -1,0 +1,39 @@
+<!-- User Info Header -->
+@if (isAuthenticated && currentUser) {
+  <div class='container-fluid bravo-bg-secondary-dark py-3'>
+    <div class='row'>
+      <div class='col-sm-12 col-md-8 mx-auto'>
+        <div class='d-flex align-items-center justify-content-between flex-nowrap'>
+          <div class='d-flex align-items-center gap-3 flex-shrink-1 min-w-0'>
+            <!-- Logo -->
+            <div class='flex-shrink-0'>
+              <img src='/logo.svg' alt='Bravo Logo' class='img-fluid'>
+            </div>
+            <div class='bravo-bg-primary-accent rounded-circle d-flex align-items-center justify-content-center avatar-size flex-shrink-0'>
+          <span class='bravo-text-on-accent fw-bold'>
+            {{ currentUser.name.charAt(0).toUpperCase() }}
+          </span>
+            </div>
+            <div class='min-w-0 flex-shrink-1'>
+              <h5 class='bravo-text-primary mb-0 text-truncate'>{{ currentUser.name }}</h5>
+              <p class='bravo-text-secondary-medium small mb-0 text-truncate'>{{ currentUser.email }}</p>
+              <span class='badge bravo-bg-primary-accent bravo-text-on-accent small'>
+            {{
+                  currentUser.userType === 'owner' ? 'Proprietário' :
+                    currentUser.userType === 'admin' ? 'Administrador' : 'Usuário'
+                }}
+          </span>
+            </div>
+          </div>
+          <div class='flex-shrink-0 ms-3'>
+            <app-secondary-button
+              [buttonText]="'Sair'"
+              [size]="'small'"
+              (buttonClick)='onSignOut()'>
+            </app-secondary-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

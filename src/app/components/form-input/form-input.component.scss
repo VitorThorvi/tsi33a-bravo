@@ -1,0 +1,101 @@
+// Form Input Component Styles
+// Uses Bootstrap classes and bravo design system from styles.scss
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  // Enhanced focus styles using bravo colors
+  &:focus {
+    border-color: var(--bravo-primary-accent) !important;
+    box-shadow: 0 0 0 0.2rem rgba(243, 195, 72, 0.25) !important;
+    outline: none;
+  }
+
+  // Hover state
+  &:hover:not(:disabled):not(:focus) {
+    border-color: var(--bravo-secondary-medium);
+  }
+
+  // Placeholder styling
+  &::placeholder {
+    color: var(--bravo-secondary-medium);
+    opacity: 0.8;
+  }
+
+  // Disabled state
+  &:disabled {
+    background-color: var(--bravo-secondary-dark) !important;
+    border-color: var(--bravo-border-accent) !important;
+    color: var(--bravo-secondary-medium) !important;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  // Read-only state
+  &:read-only {
+    background-color: var(--bravo-secondary-dark) !important;
+    border-color: var(--bravo-border-accent) !important;
+  }
+
+  // Error state
+  &.is-invalid {
+    border-color: #dc3545 !important;
+
+    &:focus {
+      border-color: #dc3545 !important;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+    }
+  }
+}
+
+// Label styling
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+
+  // Required asterisk styling
+  .text-danger {
+    font-weight: bold;
+  }
+}
+
+// Error message styling
+.invalid-feedback {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+
+  &.d-block {
+    display: block !important;
+  }
+}
+
+// Size variations
+.form-control-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+}
+
+.form-control-lg {
+  padding: 0.75rem 1rem;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+
+  .form-label {
+    font-size: 0.8125rem;
+  }
+
+  .invalid-feedback {
+    font-size: 0.8125rem;
+  }
+}

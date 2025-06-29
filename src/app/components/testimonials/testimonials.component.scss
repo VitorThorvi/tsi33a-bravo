@@ -1,0 +1,43 @@
+.testimonials-section {
+  .testimonial-card {
+    min-height: 200px;
+    position: relative;
+
+    .testimonial-image {
+      z-index: 0;
+      object-fit: cover;
+    }
+
+    .testimonial-overlay {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+      z-index: 1;
+    }
+
+    .testimonial-content {
+      z-index: 2;
+    }
+  }
+}
+
+// Responsive adjustments similar to hero component
+@media (max-width: 575.98px) {
+  .testimonials-section .testimonial-card {
+    min-height: 180px !important;
+
+    .testimonial-image {
+      object-fit: cover !important;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .testimonials-section .testimonial-card {
+    min-height: 200px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .testimonials-section .testimonial-card {
+    min-height: 250px !important;
+  }
+}

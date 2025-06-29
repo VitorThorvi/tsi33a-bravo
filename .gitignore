@@ -40,3 +40,13 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Additional ignores
+*.iml
+*.iws
+*.eml
+out/
+.svn
+log/*.log
+tmp/**
+build
