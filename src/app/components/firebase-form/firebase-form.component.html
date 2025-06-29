@@ -1,0 +1,49 @@
+<div class='firebase-form-container'>
+  <!-- Messages Section -->
+  @if (submissionError || submissionSuccess) {
+    <div class='container'>
+      <div class='row justify-content-center'>
+        <div class='col-12'>
+          @if (submissionError) {
+            <div class='alert alert-danger rounded-3 p-3 mb-3'
+                 style='background-color: #dc3545; color: white; border: none;'>
+              <p class='mb-0 text-center'>{{ submissionError }}</p>
+            </div>
+          }
+          @if (submissionSuccess) {
+            <div class='alert bravo-bg-primary-accent bravo-text-on-accent rounded-3 p-3 mb-3'>
+              <p class='mb-0 text-center fw-bold'>{{ submissionSuccess }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Form Section -->
+  <form (ngSubmit)='onSubmit()' [formGroup]='firebaseForm' class='d-flex flex-column'>
+    <!-- Dynamic Form Fields -->
+    @for (field of formFields; track field.fieldName) {
+      <div class='py-2 py-sm-3'>
+        <app-form-input
+          [control]='getFormControl(field.fieldName)!'
+          [label]='field.labelName'
+          [placeholder]='field.placeholder'
+          [type]="field.type || 'text'"
+        ></app-form-input>
+      </div>
+    }
+
+    <!-- Submit Button -->
+    <div class='py-2 py-sm-3'>
+      <app-primary-button
+        (buttonClick)='onSubmit()'
+        [fullWidth]='true'
+        [isDisabled]='firebaseForm.invalid || isLoading'
+        [buttonText]="isLoading ? 'Processing...' : submitButtonText"
+        class='w-100'
+        type='submit'
+      ></app-primary-button>
+    </div>
+  </form>
+</div>

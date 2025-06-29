@@ -1,9 +1,15 @@
-<div class='hero-container d-flex flex-column align-items-center'>
-  <div class='img-container'>
-    <img alt='stage'
-         src='https://lh3.googleusercontent.com/aida-public/AB6AXuARTNj6-ez4smA-HoUswjp1Oizy6HVnOAZPa-OXRUoT29iC7wtBJH4KqS6_VnfUE5m5xXkMjYXpGRBuAsdpsBaz4ksj-2oIKQ9ibGVlQ3-wCg5DMphvxrXmEqY_GXrh5iTdpPMCgFTCICzUgUBEl7J3Yn_RQxsBkVUa9MgZ6Au8AGnHnZYKSINPOSDLgxGkpnXkUYIxfHEtdM4s_V03jN-bRBRbqnOgta4kb_youMZnlZoYmUaD-ClcEu0YxXNGmMjD16big65afQ'>
-  </div>
-  <div class='hero-cta-container text-center'>
-    <app-cta buttonText='botones' h1Text='texto' h2Text='não perca' pText='paragrafo'></app-cta>
-  </div>
+<div class='img-container rounded-3 d-flex flex-column justify-content-end position-relative overflow-hidden'
+     style='aspect-ratio: 16/9; min-height: 300px;'>
+
+  <img alt='stage'
+       style='aspect-ratio: 16/9; min-height: 300px;'
+
+       class='w-100 h-100 object-fit-cover'
+       src='https://lh3.googleusercontent.com/aida-public/AB6AXuARTNj6-ez4smA-HoUswjp1Oizy6HVnOAZPa-OXRUoT29iC7wtBJH4KqS6_VnfUE5m5xXkMjYXpGRBuAsdpsBaz4ksj-2oIKQ9ibGVlQ3-wCg5DMphvxrXmEqY_GXrh5iTdpPMCgFTCICzUgUBEl7J3Yn_RQxsBkVUa9MgZ6Au8AGnHnZYKSINPOSDLgxGkpnXkUYIxfHEtdM4s_V03jN-bRBRbqnOgta4kb_youMZnlZoYmUaD-ClcEu0YxXNGmMjD16big65afQ'>
+</div>
+<div class='hero-cta-container text-center'>
+  <app-cta [eventName]='eventName'
+           [pText]='eventDescription'
+           buttonText='Inscreva-se agora!'
+           routeTo='sign-in'></app-cta>
 </div>

@@ -4,4 +4,5 @@ export interface IEventProps {
   eventCTA: string;
   eventVideoUrl: string;
   eventImageUrl: string;
+  isActive: boolean;
 }

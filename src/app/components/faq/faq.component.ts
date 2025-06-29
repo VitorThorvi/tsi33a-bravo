@@ -1,6 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FaqItem, FaqService } from '../../services/faq.service';
+import {
+  FaqDocument,
+  FirebaseFaqService,
+} from '../../services/firebase-faq.service';
 
 @Component({
   selector: 'app-faq',
@@ -9,8 +12,8 @@ import { FaqItem, FaqService } from '../../services/faq.service';
   styleUrl: './faq.component.scss',
 })
 export class FaqComponent implements OnInit {
-  private faqService = inject(FaqService);
-  faqItems: FaqItem[] = [];
+  private firebaseFaqService = inject(FirebaseFaqService);
+  faqItems: FaqDocument[] = [];
   loading = true;
   error: string | null = null;
 
@@ -19,7 +22,7 @@ export class FaqComponent implements OnInit {
   }
 
   private loadFaqItems(): void {
-    this.faqService.getFaqItems().subscribe({
+    this.firebaseFaqService.getFaqItems().subscribe({
       next: (items) => {
         this.faqItems = items;
         this.loading = false;

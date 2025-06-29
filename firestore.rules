@@ -1,0 +1,76 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection - users can read/write their own documents when authenticated
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Allow admins and owners to read all user documents
+      allow read: if request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];
+    }
+
+    // Events collection - read access for authenticated users, write access for admins/owners
+    match /events/{eventId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];
+    }
+
+    // Event statistics collection - read access for authenticated users, write access for admins/owners
+    match /event-statistics/{statsId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];
+    }
+
+    // Pricing collection - read access for all, write access for admins/owners
+    match /pricing/{pricingId} {
+      allow read: if true;
+      allow write: if request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];
+    }
+
+    // FAQ collection - read access for all, write access for admins/owners
+    match /faq/{faqId} {
+      allow read: if true;
+      allow write: if request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];
+    }
+
+    // Contact-us-questions collection - read/write access for authenticated users, full access for admins/owners
+    match /contact-us-questions/{contactUsQuestionId} {
+      allow read: if request.auth != null &&
+        (request.auth.uid == resource.data.userId ||
+         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner']));
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];
+    }
+
+    // CTA collection - read access for authenticated users, write access for admins/owners
+    match /cta/{ctaId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType in ['admin', 'owner'];
+    }
+
+    // Test collection - allow read/write for testing purposes (remove in production)
+    match /test/{document} {
+      allow read, write: if true;
+    }
+
+    // Default rule - deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

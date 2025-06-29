@@ -15,7 +15,7 @@
   }
   @if (buttonText) {
     <div class='cta-container'>
-      <app-primary-button [buttonText]='buttonText'/>
+      <app-primary-button [buttonText]='buttonText' (buttonClick)='onButtonClick()'/>
     </div>
   }
 </div>
