@@ -5,10 +5,11 @@ import {
   PricingDocument,
 } from '../../services/firebase-pricing.service';
 import { SecondaryButtonComponent } from '../secondary-button/secondary-button.component';
+import { BrlCurrencyPipe } from '../../pipes/brl-currency.pipe';
 
 @Component({
   selector: 'app-pricing',
-  imports: [CommonModule, SecondaryButtonComponent],
+  imports: [CommonModule, SecondaryButtonComponent, BrlCurrencyPipe],
   templateUrl: './pricing.component.html',
   styleUrl: './pricing.component.scss',
 })

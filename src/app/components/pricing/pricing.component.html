@@ -27,7 +27,7 @@
               <div class='card-body p-0'>
                 <div class='mb-4'>
                   <h3 class='bravo-text-primary h6 fw-bold mb-1'>{{ option.name }}</h3>
-                  <span class='bravo-text-primary display-6 fw-bold'>${{ option.price }}</span>
+                  <span class='bravo-text-primary display-6 fw-bold'>{{ option.price | brlCurrency }}</span>
                 </div>
                 <app-secondary-button
                   [buttonText]="'Assinar'"
